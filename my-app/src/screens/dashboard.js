@@ -1,8 +1,8 @@
 import React from 'react'
-
+import AddUser from './AddUser'
 const dashboard = () => {
   return (
-    <div>dashboard</div>
+    <div><AddUser/></div>
   )
 }
 
