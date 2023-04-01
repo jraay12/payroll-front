@@ -61,7 +61,9 @@ function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
                   />
+                  <div className="h-[40px]">
                   <Button type="submit" label="Login" onClick={handleSubmit} />
+                  </div>
                 </div>
               </form>
             </div>
