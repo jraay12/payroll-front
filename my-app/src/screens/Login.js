@@ -5,6 +5,11 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -12,22 +17,42 @@ function Login() {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
+    if(validate()){
+      const formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);
     const response = await fetch("http://localhost:8000/api/login", {
       method: "POST",
       body: formData,
+      // headers: {
+      //   'Content-Type' : 'application/json',
+      //   'Accept' : 'application/json'
+      // }
     });
     const data = await response.json();
     if (response.ok) {
       localStorage.setItem("access_token", data.access_token);
-      navigate("/");
+      navigate("/Admindashboard");
+      
     } else {
       alert(data.error);
     }
-  };
+    }
+  };  
 
+  const validate = () => {
+    let result = true;
+    if(email === '' || email === null) {
+      result=false;
+      toast.warning('Please Enter Email', {autoClose: 1000, theme:'dark'});
+    } 
+    if(password === '' || password === null) {
+      result=false;
+      toast.warning('Please Enter Password', {autoClose: 1000, theme:'dark'});
+    }
+    return result
+    
+  }
   return (
     <div className="w-screen h-screen">
       <div className="h-[50%] bg-sky-400 min-w-screen flex justify-center">
@@ -63,6 +88,7 @@ function Login() {
                   />
                   <div className="h-[40px]">
                   <Button type="submit" label="Login" onClick={handleSubmit} />
+                  <ToastContainer></ToastContainer>
                   </div>
                 </div>
               </form>

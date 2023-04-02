@@ -1,6 +1,6 @@
 import React from 'react'
 import AddUser from './AddUser'
-const dashboard = () => {
+const Admindashboard = () => {
   return (
     <div className='w-screen h-screen'>
       <div className='m-auto'><AddUser/></div>
@@ -8,4 +8,4 @@ const dashboard = () => {
   )
 }
 
-export default dashboard
+export default Admindashboard
