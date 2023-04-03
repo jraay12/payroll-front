@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from "../images/logo.png";
 import "../index.css";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import axios from "../api/axios";
+
 import { useNavigate } from "react-router-dom";
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,27 +15,31 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() =>{
+    sessionStorage.clear();
+  },[]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(validate()){
       const formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);
-    const response = await fetch("http://localhost:8000/api/login", {
+    const response = await fetch("http://localhost:8000/api/auth/login", {
       method: "POST",
       body: formData,
-      // headers: {
-      //   'Content-Type' : 'application/json',
-      //   'Accept' : 'application/json'
-      // }
+      
+      
     });
     const data = await response.json();
     if (response.ok) {
-      localStorage.setItem("access_token", data.access_token);
+      sessionStorage.setItem("access_token", data.access_token);
+      debugger;
       navigate("/Admindashboard");
       
-    } else {
-      alert(data.error);
+    } else { 
+      toast.error("Please enter Valid Credentials", {autoClose:1000, theme:"dark"})
     }
     }
   };  
@@ -45,7 +49,7 @@ function Login() {
     if(email === '' || email === null) {
       result=false;
       toast.warning('Please Enter Email', {autoClose: 1000, theme:'dark'});
-    } 
+    }
     if(password === '' || password === null) {
       result=false;
       toast.warning('Please Enter Password', {autoClose: 1000, theme:'dark'});
@@ -53,6 +57,34 @@ function Login() {
     return result
     
   }
+
+  // constructor()
+  // {
+  //   super();
+  //   this.state={
+  //     email:null,
+  //     password:null,
+  //     login:false,
+  //     store:null
+  //   }
+
+  //   Submit()
+  //   {
+  //     fetch('http://127.0.0.1:8000/api/login', {
+  //       method: "POST",
+  //       body: JSON.stringify(this.state)
+  //     }).then((response) => {
+  //         response.json().then((result)=>{
+  //           console.warn("result", result);
+  //           localStorage.setItem('login', JSON.stringify({
+  //             login:true,
+  //             token:result.token
+  //           }))
+
+  //         })
+  //     })
+  //   }
+  // }
   return (
     <div className="w-screen h-screen">
       <div className="h-[50%] bg-sky-400 min-w-screen flex justify-center">
