@@ -3,7 +3,6 @@ import Logo from "../images/logo.png";
 import "../index.css";
 import Input from "../components/Input";
 import Button from "../components/Button";
-
 import { useNavigate } from "react-router-dom";
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,16 +25,16 @@ function Login() {
       const formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);
-    const response = await fetch("http://localhost:8000/api/auth/login", {
+    const response = await fetch("http://localhost:8000/api/login", {
       method: "POST",
       body: formData,
       
-      
     });
+
     const data = await response.json();
     if (response.ok) {
-      sessionStorage.setItem("access_token", data.access_token);
-      debugger;
+      const token = data.data.token;
+      sessionStorage.setItem("access_token", token);
       navigate("/Admindashboard");
       
     } else { 
@@ -58,44 +57,16 @@ function Login() {
     
   }
 
-  // constructor()
-  // {
-  //   super();
-  //   this.state={
-  //     email:null,
-  //     password:null,
-  //     login:false,
-  //     store:null
-  //   }
 
-  //   Submit()
-  //   {
-  //     fetch('http://127.0.0.1:8000/api/login', {
-  //       method: "POST",
-  //       body: JSON.stringify(this.state)
-  //     }).then((response) => {
-  //         response.json().then((result)=>{
-  //           console.warn("result", result);
-  //           localStorage.setItem('login', JSON.stringify({
-  //             login:true,
-  //             token:result.token
-  //           }))
-
-  //         })
-  //     })
-  //   }
-  // }
   return (
-    <div className="w-screen h-screen">
-      <div className="h-[50%] bg-sky-400 min-w-screen flex justify-center">
-        <div className="flex flex-col items-center h-full w-screen gap-10">
-          <div className="w-[200px] h-[200px] object-contain mt-10 flex items-center">
-            <img src={Logo} alt="" className="bg-logo"></img>
+    <div className="w-screen h-screen bg-background flex justify-center items-center">
+        <div className="flex flex-col items-center h-full w-screen">
+          <div className="w-[100px] h-[100px] object-contain mt-2 flex items-center">
+            <img src={Logo} alt="Logo"></img>
           </div>
-          <div className="flex h-screen items-center">
-            <div className="h-[360px] max-w-[400px] w-screen bg-white rounded-md shadow-2xl ">
+          <div className="h-[360px] max-w-[350px] w-screen bg-blue-950 rounded-md shadow-2xl ">
               <div className="flex flex-col items-center gap-8">
-                <h1 className="font-semibold mt-[20px] text-2xl">Sign In</h1>
+                <h1 className="font-semibold mt-[20px] text-2xl text-white">Sign In</h1>
                 <p className="text-gray-400 text-sm">
                   Sign in with your username and password
                 </p>
@@ -125,9 +96,9 @@ function Login() {
                 </div>
               </form>
             </div>
-          </div>
+          
         </div>
-      </div>
+      
     </div>
   );
 }
