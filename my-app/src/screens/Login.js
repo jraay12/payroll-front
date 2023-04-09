@@ -17,6 +17,7 @@ function Login() {
 
   useEffect(() =>{
     sessionStorage.clear();
+    
   },[]);
 
   const handleSubmit = async (e) => {
@@ -58,9 +59,11 @@ function Login() {
   }
 
 
+
+
   return (
-    <div className="w-screen h-screen bg-background flex justify-center items-center">
-        <div className="flex flex-col items-center h-full w-screen">
+    <div className="w-screen h-screen bg-background flex justify-center items-center bg-cover">
+        <div className="flex flex-col items-center h-full w-screen justify-center">
           <div className="w-[100px] h-[100px] object-contain mt-2 flex items-center">
             <img src={Logo} alt="Logo"></img>
           </div>
@@ -89,7 +92,7 @@ function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
                   />
-                  <div className="h-[40px]">
+                  <div className="h-[40px] bg-blue-500 mx-5 rounded-lg">
                   <Button type="submit" label="Login" onClick={handleSubmit} />
                   <ToastContainer></ToastContainer>
                   </div>
