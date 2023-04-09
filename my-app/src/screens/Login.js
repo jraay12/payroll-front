@@ -17,7 +17,6 @@ function Login() {
 
   useEffect(() =>{
     sessionStorage.clear();
-    
   },[]);
 
   const handleSubmit = async (e) => {
@@ -57,8 +56,6 @@ function Login() {
     return result
     
   }
-
-
 
 
   return (
