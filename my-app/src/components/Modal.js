@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Input from "./Input";
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 const Modal = (props) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [closeModal, setCloseModal] = useState(true);
+ 
 
 
   const access_token = sessionStorage.getItem("access_token");
- 
+ const navigate = useNavigate();
 
   const headers = {
     Authorization: `Bearer ${access_token}`,
@@ -28,17 +29,18 @@ const Modal = (props) => {
     });
 
     if (response.ok) {
-        setCloseModal(false)
+        console.log("Success");
+
     } else {
       console.error("An error occurred while registering user.");
     }
   };
   return (
     <div>
-      <div className="flex flex-col items-center h-[400px] w-[400px] bg-gradient-to-r from-sky-500 to-indigo-500 drop-shadow-2xl shadow-2xl gap-10 rounded-2xl">
+      <div className="flex flex-col items-center h-[400px] w-[400px] bg-gradient-to-r from-sky-500 to-indigo-500 drop-shadow-2xl shadow-2xl gap-10 rounded-2xl mt-5">
         <label className="font-bold mt-4 text-2xl">Add User</label>
         <div className="w-full mx-4 flex flex-col gap-4">
-          <form onSubmit={handleRegister} method="POST">
+          <form onSubmit={(e) => handleRegister(e)} method="POST">
             <Input
               placeholder="John Ray"
               label="Name"
