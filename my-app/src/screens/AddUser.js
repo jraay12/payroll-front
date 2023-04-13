@@ -5,7 +5,7 @@ import Modal from "../components/Modal";
 const AddUser = () => {
   const [openModal, setOpenModal] = useState(false);
   return (
-    <div className="flex">
+    <div className="flex justify-center">
       <div className="h-[40px] w-[170px] px-2">
         <Button
           label="Create account"
@@ -13,8 +13,10 @@ const AddUser = () => {
             setOpenModal(true);
           }}
         />
-        <div className="">
+        <div className="flex items-center absolute ">
           {openModal && <Modal onClick={() => setOpenModal(false)} />}
+  
+
         </div>
       </div>
     </div>

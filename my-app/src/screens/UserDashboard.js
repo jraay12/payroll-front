@@ -2,7 +2,9 @@ import React from 'react'
 
 const UserDashboard = () => {
   return (
-    <div>UserDashboard</div>
+    <div>
+      <h1>HELL USER</h1>
+    </div>
   )
 }
 
