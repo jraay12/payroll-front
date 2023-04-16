@@ -39,12 +39,10 @@ const Admindashboard = () => {
   }, [userData]);
 
   const fetchUser = async () => {
-    const fetchResponse = await fetch("http://127.0.0.1:8000/api/getUser/2", {
+    const fetchResponse = await fetch(`http://127.0.0.1:8000/api/getUser/2`, {
       method: "GET",
       headers: headers
     });
-
-   
 
     const value = await fetchResponse.json();
     if (fetchResponse.ok) {
@@ -56,7 +54,7 @@ const Admindashboard = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:8000/api/logout", {
+      await fetch(`http://localhost:8000/api/logout`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -74,21 +72,19 @@ const Admindashboard = () => {
 
   
 
-  // const handleDelete = async(id) => {
-  //   const reponse = await fetch('http://127.0.0.1:8000/api/delete/${id}', {
-  //   method: "DELETE",
-  //   headers: headers
+  const handleDelete = async(id) => {
+    const response = await fetch(`http://127.0.0.1:8000/api/delete/${id}`, {
+      method: "DELETE",
+      headers: headers
+    })
+  
+    if (response.ok){
+      setUserData(userData.filter(user => user.id !== id));
+    }else{
+      console.error("Error");
+    }
+  }
 
-  //   })
-
-  //   if (reponse.ok){
-  //     console.log("Success");
-  //     setUserData(userData.filter(user => user.id !== id));
-  //     console.log(userData);
-  //   }else{
-  //     console.error("Error");
-  //   }
-  // }
   return (
     <div className="min-w-screen min-h-screen bg-gradient-to-r from-sky-500 to-indigo-500 flex flex-col overflow-hidden ">
       <div className="w-screen bg-blue-900 h-11 flex justify-between ">
@@ -150,7 +146,7 @@ const Admindashboard = () => {
                               <Button
                                 type="submit"
                                 label="Delete"
-                                // onClick={() => handleDelete(user.id)}
+                                 onClick={() => handleDelete(user.id)}
                               />
                             </div>
                             <div className=" bg-blue-800 h-[40px] w-[70px]">
