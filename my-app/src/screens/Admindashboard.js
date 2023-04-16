@@ -11,19 +11,26 @@ const Admindashboard = () => {
   const [userData, setUserData] = useState([]);
 
   const access_token = sessionStorage.getItem("access_token");
+
   const headers = {
     Authorization: `Bearer ${access_token}`,
+    "Content-Type": "application/json",
+    Accept : "application/json",
   };
+
   useEffect(() => {
     let access_token = sessionStorage.getItem("access_token");
     if (access_token === "" || access_token === null) {
       navigate("/");
     }
 
+  
+
     // Add a delay of 1 second before fetching user data
     const delay = 1000;
     const timerId = setTimeout(() => {
       fetchUser();
+     
     }, delay);
 
     return () => {
@@ -34,12 +41,10 @@ const Admindashboard = () => {
   const fetchUser = async () => {
     const fetchResponse = await fetch("http://127.0.0.1:8000/api/getUser/2", {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: headers
     });
 
-    // Check if the response type is JSON
+   
 
     const value = await fetchResponse.json();
     if (fetchResponse.ok) {
@@ -49,10 +54,25 @@ const Admindashboard = () => {
     }
   };
 
-  const handleLogout = () => {
-    navigate("/");
-    sessionStorage.clear();
+  const handleLogout = async () => {
+    try {
+      await fetch("http://localhost:8000/api/logout", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${access_token}`,
+        },
+       
+      });
+      sessionStorage.removeItem("access_token");
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  
 
   // const handleDelete = async(id) => {
   //   const reponse = await fetch('http://127.0.0.1:8000/api/delete/${id}', {
@@ -80,7 +100,7 @@ const Admindashboard = () => {
           <img src={Logo} alt="Logo"></img>
         </div>
         <div className="flex items-center px-5">
-          <Button label="Logout" onClick={handleLogout} />
+          <Button label="Logout" onClick={handleLogout}/>
         </div>
       </div>
       <div className="flex justify-start mt-4 w-4">
