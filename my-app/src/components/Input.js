@@ -11,6 +11,7 @@ const Input = (props) => {
           value={props.value}
           onChange={props.onChange}
           id={props.id}
+          required
           placeholder={props.placeholder}
           className="w-full px-4 h-full"
         ></input>

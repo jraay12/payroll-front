@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import AddUser from "./AddUser";
 import Logo from "../images/logo.png";
 import { useNavigate } from "react-router-dom";
-import DropDownMenu from "../components/DropDownMenu";
 import { RiAdminFill } from "react-icons/ri";
 import Button from "../components/Button";
-
 const Admindashboard = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState([]);
@@ -15,7 +13,7 @@ const Admindashboard = () => {
   const headers = {
     Authorization: `Bearer ${access_token}`,
     "Content-Type": "application/json",
-    Accept : "application/json",
+    
   };
 
   useEffect(() => {
@@ -24,13 +22,9 @@ const Admindashboard = () => {
       navigate("/");
     }
 
-  
-
-    // Add a delay of 1 second before fetching user data
-    const delay = 1000;
+    const delay = 1500;
     const timerId = setTimeout(() => {
       fetchUser();
-     
     }, delay);
 
     return () => {
@@ -39,14 +33,16 @@ const Admindashboard = () => {
   }, [userData]);
 
   const fetchUser = async () => {
-    const fetchResponse = await fetch(`http://127.0.0.1:8000/api/getUser/2`, {
+    const response = await fetch(`http://127.0.0.1:8000/api/getUser`, {
       method: "GET",
-      headers: headers
+      headers: headers,
     });
 
-    const value = await fetchResponse.json();
-    if (fetchResponse.ok) {
-      setUserData(Object.values(value.data));
+    if (response.ok) {
+      const value = await response.json();
+      const users = Object.values(value.data);
+      const filteredData = users.filter((item) => item.role_id === 2);
+      setUserData(filteredData);
     } else {
       console.error("No Data");
     }
@@ -54,36 +50,29 @@ const Admindashboard = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch(`http://localhost:8000/api/logout`, {
+      await fetch("http://localhost:8000/api/logout", {
         method: "POST",
-        headers: {
-          "Content-type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${access_token}`,
-        },
-       
       });
       sessionStorage.removeItem("access_token");
       navigate("/");
     } catch (error) {
-      console.error(error);
+      console.error();
     }
+   
   };
 
-  
-
-  const handleDelete = async(id) => {
+  const handleDelete = async (id) => {
     const response = await fetch(`http://127.0.0.1:8000/api/delete/${id}`, {
       method: "DELETE",
-      headers: headers
-    })
-  
-    if (response.ok){
-      setUserData(userData.filter(user => user.id !== id));
-    }else{
+      headers: headers,
+    });
+
+    if (response.ok) {
+      setUserData(userData.filter((user) => user.id !== id));
+    } else {
       console.error("Error");
     }
-  }
+  };
 
   return (
     <div className="min-w-screen min-h-screen bg-gradient-to-r from-sky-500 to-indigo-500 flex flex-col overflow-hidden ">
@@ -96,7 +85,7 @@ const Admindashboard = () => {
           <img src={Logo} alt="Logo"></img>
         </div>
         <div className="flex items-center px-5">
-          <Button label="Logout" onClick={handleLogout}/>
+          <Button label="Logout" onClick={handleLogout} />
         </div>
       </div>
       <div className="flex justify-start mt-4 w-4">
@@ -146,11 +135,18 @@ const Admindashboard = () => {
                               <Button
                                 type="submit"
                                 label="Delete"
-                                 onClick={() => handleDelete(user.id)}
+                                onClick={() => handleDelete(user.id)}
                               />
                             </div>
                             <div className=" bg-blue-800 h-[40px] w-[70px]">
-                              <Button type="submit" label="Update" />
+                              <Button
+                                type="submit"
+                                label="Update"
+                                // onClick={() => {
+                                //   // Pass the user ID and the current user data to the update form
+                                //   navigate("/Update");
+                                // }}
+                              />
                             </div>
                           </div>
                         </td>

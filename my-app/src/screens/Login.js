@@ -17,31 +17,6 @@ function Login() {
     sessionStorage.clear();
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (validate()) {
-      const formData = new FormData();
-      formData.append("email", email);
-      formData.append("password", password);
-      const response = await fetch("http://localhost:8000/api/login", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        const token = data.data.token;
-        sessionStorage.setItem("access_token", token);
-        navigate("/Admindashboard");
-      } else {
-        toast.error("Please enter Valid Credentials", {
-          autoClose: 1000,
-          theme: "dark",
-        });
-      }
-    }
-  };
-
   const validate = () => {
     let result = true;
     if (email === "" || email === null) {
@@ -56,6 +31,33 @@ function Login() {
       });
     }
     return result;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (validate()) {
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("password", password);
+      const response = await fetch("http://localhost:8000/api/login", {
+        method: "POST",
+        body: formData,
+      });
+
+      
+      if (response.ok) {
+        const data = await response.json();
+        const token = data.data.token;
+        sessionStorage.setItem("access_token", token);
+        navigate("/Admindashboard");
+      } else {
+        toast.error("Please enter Valid Credentials", {
+          autoClose: 1000,
+          theme: "dark",
+        });
+      }
+    }
+    
   };
 
   return (
@@ -90,6 +92,7 @@ function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
+                
               />
               <div className="h-[40px] bg-blue-500 mx-5 rounded-lg">
                 <Button type="submit" label="Login" onClick={handleSubmit} />
