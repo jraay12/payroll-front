@@ -4,6 +4,7 @@ import Logo from "../images/logo.png";
 import { useNavigate } from "react-router-dom";
 import { RiAdminFill } from "react-icons/ri";
 import Button from "../components/Button";
+import UpdateUser from "./UpdateUser";
 const Admindashboard = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState([]);
@@ -13,7 +14,6 @@ const Admindashboard = () => {
   const headers = {
     Authorization: `Bearer ${access_token}`,
     "Content-Type": "application/json",
-    
   };
 
   useEffect(() => {
@@ -58,7 +58,6 @@ const Admindashboard = () => {
     } catch (error) {
       console.error();
     }
-   
   };
 
   const handleDelete = async (id) => {
@@ -128,7 +127,6 @@ const Admindashboard = () => {
                         <td className="whitespace-nowrap px-6 py-4 text-sm font-semibold">
                           {user.email}
                         </td>
-
                         <td className="whitespace-nowrap py-4">
                           <div className="flex gap-2">
                             <div className=" bg-red-800 h-[40px] w-[70px]">
@@ -142,10 +140,11 @@ const Admindashboard = () => {
                               <Button
                                 type="submit"
                                 label="Update"
-                                // onClick={() => {
-                                //   // Pass the user ID and the current user data to the update form
-                                //   navigate("/Update");
-                                // }}
+                                onClick={() => navigate("/Update")}
+                              />
+                              <UpdateUser
+                                userData={userData}
+                                setUserData={setUserData}
                               />
                             </div>
                           </div>
