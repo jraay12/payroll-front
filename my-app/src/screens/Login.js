@@ -49,7 +49,7 @@ function Login() {
         const data = await response.json();
         const token = data.data.token;
         sessionStorage.setItem("access_token", token);
-        navigate("/Admindashboard");
+        navigate("/PartialDashboard/Employee");
       } else {
         toast.error("Please enter Valid Credentials", {
           autoClose: 1000,

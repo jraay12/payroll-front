@@ -7,7 +7,7 @@ const AddUser = () => {
   
   return (
     <div className="flex justify-start">
-      <div className="h-[40px] w-[170px]  border-none bg-red-600 rounded-lg mx-4">
+      <div className="h-[40px] w-[170px]  border-none bg-red-600 rounded-lg mx-4 hover:bg-blue-600">
         <Button
           label="Create account"
           onClick={() => {

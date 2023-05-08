@@ -9,10 +9,9 @@ const Modal = (props) => {
   const [isRegistered, setIsRegistered] = useState(true);
 
   const access_token = sessionStorage.getItem("access_token");
-
   const headers = { Authorization: `Bearer ${access_token}` };
 
-  console.log(isRegistered);
+  
   const handleRegister = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -20,12 +19,12 @@ const Modal = (props) => {
     formData.append("email", email);
     formData.append("password", password);
 
-    const response = await fetch(`http://localhost:8000/api/register`, {
-      method: "POST",
-      body: formData,
-      headers: headers,
-    });
-
+   const response = await fetch(`http://127.0.0.1:8000/api/register`, {
+    method: "POST",
+    body: formData,
+    headers: headers
+   })
+    
     if (response.ok) {
       console.log("Success");
       setIsRegistered(false);

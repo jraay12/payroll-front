@@ -7,7 +7,9 @@ module.exports = {
     extend: {
       backgroundImage: {
         'background': "url('/src/images/background.jpg')"
-      }
+      },
+      
+      
     },
   },
   plugins: [],
