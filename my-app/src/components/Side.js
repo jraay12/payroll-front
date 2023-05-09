@@ -34,7 +34,7 @@ const Side = () => {
     },
   ];
   return (
-    <div className="flex drop-shadow-2xl shadow-2xl max-h-screen">
+    <div className="flex drop-shadow-2xl shadow-2xl max-h-screen bg-white">
       <div
         className={` ${
           open ? "w-52" : "w-20 "

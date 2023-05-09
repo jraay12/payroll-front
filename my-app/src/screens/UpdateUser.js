@@ -7,7 +7,7 @@ const UpdateUser = ({ userData, setUserData }) => {
     Authorization: `Bearer ${access_token}`,
     "Content-Type": "application/json",
   };
-  console.log(userData);
+
 
   return 
   <>

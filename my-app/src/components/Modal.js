@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Input from "./Input";
 import Button from "./Button";
+import DropdownInput from "../components/DropdownInput";
 
 const Modal = (props) => {
   const [name, setName] = useState("");
@@ -19,8 +20,6 @@ const Modal = (props) => {
     formData.append("email", email);
     formData.append("position", position);
     formData.append("password", password);
-    
-
 
     const response = await fetch(`http://127.0.0.1:8000/api/register`, {
       method: "POST",
@@ -59,10 +58,10 @@ const Modal = (props) => {
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <Input
-                label="Position"
-                type="text"
-                onChange={(e) => setPosition(e.target.value)}
+              <DropdownInput 
+              position={position}
+              setPosition={setPosition}
+              
               />
               <Input
                 label="Password"
