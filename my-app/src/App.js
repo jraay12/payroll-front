@@ -7,7 +7,6 @@ import UserDashboard from "./screens/UserDashboard";
 import UpdateUser from "./screens/UpdateUser";
 import PartialDashboard from "./screens/PartialDashboard";
 import Employee from "./screens/Employee";
-import Attendance from "./screens/Attendance";
 import Payroll from "./screens/Payroll";
 function App() {
   return (
@@ -18,7 +17,6 @@ function App() {
       <Route path="/Create" element={<AddUser />} />
       <Route path="/Update" element={<UpdateUser />} />
       <Route path="/PartialDashboard" element={<PartialDashboard />}>
-        <Route path="Attendance" element={<Attendance />} />
         <Route path="Employee" element={<Employee />} />
         <Route path="Payroll" element={<Payroll />} />
       </Route>

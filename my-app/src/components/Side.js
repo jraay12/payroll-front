@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Control from "../images/control.png";
 import Logo from "../images/logo.png";
-import Button from "./Button";
+import User from "../images/User.png";
+import payroll from "../images/payroll.png";
+import Logout from "../images/logout.png"
 const Side = () => {
   const [open, setOpen] = useState(true);
-  const navigate = useNavigate();
+
   const handleLogout = async () => {
     try {
       await fetch("http://localhost:8000/api/logout", {
         method: "POST",
       });
       sessionStorage.removeItem("access_token");
-      navigate("/");
+      window.location.reload();
     } catch (error) {
       console.error();
     }
@@ -22,21 +24,20 @@ const Side = () => {
     {
       path: "/PartialDashboard/Employee",
       name: "Employee",
-    },
-    {
-      path: "/PartialDashboard/Attendance",
-      name: "Attendance",
+      src: User,
     },
     {
       path: "/PartialDashboard/Payroll",
       name: "Payroll",
+      src: payroll,
+      
     },
   ];
   return (
-    <div className="flex drop-shadow-2xl shadow-2xl">
+    <div className="flex drop-shadow-2xl shadow-2xl max-h-screen">
       <div
         className={` ${
-          open ? "w-72" : "w-20 "
+          open ? "w-52" : "w-20 "
         } bg-dark-purple h-screen p-5  pt-8 relative duration-300`}
       >
         <img
@@ -53,7 +54,7 @@ const Side = () => {
             }`}
           />
         </div>
-        <div className="flex flex-col gap-52">
+        <div className="flex flex-col gap-80 ">
           <ul className="pt-6 mt-10 ">
             {menuItem.map((items, index) => (
               <NavLink
@@ -64,6 +65,7 @@ const Side = () => {
                   index === 0 && "bg-light-white"
                 } `}
               >
+                <img src={items.src} />{" "}
                 <span
                   className={`${!open && "hidden"} origin-left duration-200`}
                 >
@@ -72,8 +74,16 @@ const Side = () => {
               </NavLink>
             ))}
           </ul>
-          <div className="py-2 px-2 bg-red-800 rounded-lg">
-            <Button label="LOGOUT" onClick={handleLogout} />
+          <div className=" flex ml-2 items-center">
+            <img src={Logout} className="object-contain h-5 w-5" />
+            <span className={`${!open && "hidden"}`}>
+              <button
+                className="text-black text-lg font-semibold  ml-4 py-2 rounded-lg"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </span>
           </div>
         </div>
       </div>

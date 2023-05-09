@@ -11,9 +11,9 @@ const PartialDashboard = () => {
   }, [])
 
   return (
-    <div className="flex">
+    <div className="flex  min-h-screen">
       <Side/>
-      <Outlet />
+      <Outlet/>
     </div>
   );
 };
