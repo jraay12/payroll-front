@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import AddUser from "./AddUser";
-import { useNavigate } from "react-router-dom";
-import { RiAdminFill } from "react-icons/ri";
+import { json, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import UpdateUser from "./UpdateUser";
+import axios from "../api/axios";
 
 const Employee = () => {
-  let access_token = sessionStorage.getItem("access_token");
   const navigate = useNavigate();
   const [userData, setUserData] = useState(() => {
     return [];
   });
 
+  let access_token = sessionStorage.getItem("access_token");
   const headers = {
     Authorization: `Bearer ${access_token}`,
     "Content-Type": "application/json",
@@ -29,31 +28,32 @@ const Employee = () => {
   }, [userData]);
 
   const fetchUser = async () => {
-    const response = await fetch(`http://127.0.0.1:8000/api/getUser`, {
-      method: "GET",
-      headers: headers,
-    });
+    try {
+      const response = await axios.get(`/getUser`, {
+        headers,
+      });
 
-    if (response.ok) {
-      const value = await response.json();
-      const users = Object.values(value.data);
-      const filteredData = users.filter((item) => item.role_id === 2);
-      setUserData(filteredData);
-    } else {
-      console.error("No Data");
+      if (response.status === 200) {
+        const value = await response.data;
+        const users = Object.values(value.data);
+        const filteredData = users.filter((item) => item.role_id === 2);
+        setUserData(filteredData);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
   const handleDelete = async (id) => {
-    const response = await fetch(`http://127.0.0.1:8000/api/delete/${id}`, {
-      method: "DELETE",
-      headers: headers,
-    });
-
-    if (response.ok) {
-      setUserData(userData.filter((user) => user.id !== id));
-    } else {
-      console.error("Error");
+    try {
+      const response = await axios.delete(`/delete/${id}`, {
+        headers: headers,
+      });
+      if (response.status === 200) {
+        setUserData(userData.filter((user) => user.id !== id));
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -83,7 +83,6 @@ const Employee = () => {
                     </td>
                     <td className="whitespace-nowrap  text-sm font-semibold">
                       {user.name}
-                      
                     </td>
                     <td className="whitespace-nowrap  text-sm font-semibold">
                       {user.email}
@@ -104,11 +103,7 @@ const Employee = () => {
                           <Button
                             type="submit"
                             label="Update"
-                            onClick={() => navigate("/Update")}
-                          />
-                          <UpdateUser
-                            userData={userData}
-                            setUserData={setUserData}
+                            // onClick={() => navigate("/Update")}
                           />
                         </div>
                       </div>

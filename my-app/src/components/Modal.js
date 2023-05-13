@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Input from "./Input";
 import Button from "./Button";
 import DropdownInput from "../components/DropdownInput";
+import axios from "../api/axios";
 
 const Modal = (props) => {
   const [name, setName] = useState("");
@@ -20,24 +21,24 @@ const Modal = (props) => {
     formData.append("email", email);
     formData.append("position", position);
     formData.append("password", password);
+    
+    try {
+      const response = await axios.post(`/register`, formData, { headers });
 
-    const response = await fetch(`http://127.0.0.1:8000/api/register`, {
-      method: "POST",
-      body: formData,
-      headers: headers,
-    });
-
-    if (response.ok) {
-      console.log("Success");
-      setIsRegistered(false);
-      setTimeout(() => {
-        setIsRegistered(true);
-        props.onClick();
-      }, 1000);
-    } else {
-      console.error("An error occurred while registering user.");
+      if (response.status === 201) {
+        console.log("Success");
+        setIsRegistered(false);
+        console.log(isRegistered);
+        setTimeout(() => {
+          setIsRegistered(true);
+          props.onClick();
+        }, 1000);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
+
 
   return (
     <div>
@@ -58,11 +59,7 @@ const Modal = (props) => {
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <DropdownInput 
-              position={position}
-              setPosition={setPosition}
-              
-              />
+              <DropdownInput position={position} setPosition={setPosition} />
               <Input
                 label="Password"
                 type="password"

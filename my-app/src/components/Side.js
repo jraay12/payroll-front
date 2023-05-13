@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Control from "../images/control.png";
 import Logo from "../images/logo.png";
 import User from "../images/User.png";
 import payroll from "../images/payroll.png";
-import Logout from "../images/logout.png"
+import Logout from "../images/logout.png";
 const Side = () => {
   const [open, setOpen] = useState(true);
-
+  const navigate = useNavigate();
   const handleLogout = async () => {
     try {
       await fetch("http://localhost:8000/api/logout", {
         method: "POST",
       });
       sessionStorage.removeItem("access_token");
-      window.location.reload();
+      navigate("/")
     } catch (error) {
       console.error();
     }
@@ -22,15 +22,14 @@ const Side = () => {
 
   const menuItem = [
     {
-      path: "/PartialDashboard/Employee",
+      path: "/AdminDashboard/Employee",
       name: "Employee",
       src: User,
     },
     {
-      path: "/PartialDashboard/Payroll",
+      path: "/AdminDashboard/Payroll",
       name: "Payroll",
       src: payroll,
-      
     },
   ];
   return (
@@ -54,7 +53,7 @@ const Side = () => {
             }`}
           />
         </div>
-        <div className="flex flex-col gap-80 ">
+        <div className="flex flex-col gap-64 ">
           <ul className="pt-6 mt-10 ">
             {menuItem.map((items, index) => (
               <NavLink

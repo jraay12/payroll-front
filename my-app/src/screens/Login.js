@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Logo from "../images/logo.png";
 import "../index.css";
 import Input from "../components/Input";
@@ -6,10 +6,17 @@ import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "../api/axios";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  let access_token = sessionStorage.getItem("access_token");
+  const headers = {
+    Authorization: `Bearer ${access_token}`,
+    "Content-Type": "application/json",
+  };
 
   const navigate = useNavigate();
 
@@ -39,17 +46,13 @@ function Login() {
       const formData = new FormData();
       formData.append("email", email);
       formData.append("password", password);
-      const response = await fetch("http://localhost:8000/api/login", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await axios.post(`login`, formData, { headers });
 
-      
-      if (response.ok) {
-        const data = await response.json();
+      if (response.status === 200) {
+        const data = await response.data;
         const token = data.data.token;
         sessionStorage.setItem("access_token", token);
-        navigate("/PartialDashboard/Employee");
+        navigate("/AdminDashboard/Employee");
       } else {
         toast.error("Please enter Valid Credentials", {
           autoClose: 1000,
@@ -57,7 +60,6 @@ function Login() {
         });
       }
     }
-    
   };
 
   return (
@@ -92,7 +94,6 @@ function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
-                
               />
               <div className="h-[40px] bg-blue-500 mx-5 rounded-lg">
                 <Button type="submit" label="Login" onClick={handleSubmit} />
