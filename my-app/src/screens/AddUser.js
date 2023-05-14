@@ -14,7 +14,6 @@ const AddUser = () => {
           label="Create account"
           onClick={() => {
             setOpenModal(true);
-            console.log(openModal);
           }}
         />
 

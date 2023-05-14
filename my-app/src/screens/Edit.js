@@ -46,9 +46,9 @@ const Edit = () => {
       .catch((err) => console.error(err));
   };
   return (
-    <div className="flex flex-col justify-center items-center bg-white h-screen w-screen mx-10 ">
+    <div className="flex justify-center items-center flex-col w-screen mx-10 my-10 max-h-[550px] max-w-7xl  bg-white drop-shadow-2xl shadow-2xl rounded-xl">
       <label className="font-bold ml-4 text-2xl">Update User</label>
-      <div className="w-full mx-4 flex flex-col gap-4">
+      <div className="w-full mx-4 flex flex-col mt-7">
         <div className="flex justify-center items-center flex-col">
           <form onSubmit={handleUpdate}>
             <Input
@@ -81,10 +81,10 @@ const Edit = () => {
                 setValues({ ...values, password: e.target.value })
               }
             />
-            <div className="h-[40px] mt-2 bg-blue-600">
+            <div className="h-[40px] mt-4 bg-blue-600 rounded-lg outline-none" >
               <Button label="Update" type="submit" />
             </div>
-            <div className="h-[40px] mt-2 bg-blue-600">
+            <div className="h-[40px] mt-2 bg-blue-600 rounded-lg outline-none">
               <Button label="Cancel" onClick={() => navigate("/AdminDashboard/Employee")} />
             </div>
           </form>

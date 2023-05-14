@@ -46,19 +46,23 @@ function Login() {
       const formData = new FormData();
       formData.append("email", email);
       formData.append("password", password);
-      const response = await axios.post(`login`, formData, { headers });
 
-      if (response.status === 200) {
-        const data = await response.data;
-        const token = data.data.token;
-        sessionStorage.setItem("access_token", token);
-        navigate("/AdminDashboard/Employee");
-      } else {
-        toast.error("Please enter Valid Credentials", {
-          autoClose: 1000,
-          theme: "dark",
+      axios
+        .post(`login`, formData, { headers })
+        .then((res) => {
+          const data = res.data;
+          const token = data.data.token;
+          sessionStorage.setItem("access_token", token);
+          navigate("/AdminDashboard/Employee");
+        })
+        .catch((err) => {
+          console.error(err);
+          toast.error("Please enter valid credentials", {
+            autoClose: 1000,
+            theme: "dark",
+          });
         });
-      }
+
     }
   };
 

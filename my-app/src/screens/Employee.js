@@ -5,7 +5,7 @@ import Button from "../components/Button";
 import axios from "../api/axios";
 
 const Employee = () => {
-  const navigate = useNavigate();
+  
   const [userData, setUserData] = useState(() => {
     return [];
   });
@@ -17,7 +17,7 @@ const Employee = () => {
   };
 
   useEffect(() => {
-    const delay = 1500;
+    const delay = 500;
     const timerId = setTimeout(() => {
       fetchUser();
     }, delay);
@@ -27,34 +27,28 @@ const Employee = () => {
     };
   }, [userData]);
 
-  const fetchUser = async () => {
-    try {
-      const response = await axios.get(`/getUser`, {
-        headers,
-      });
 
-      if (response.status === 200) {
-        const value = await response.data;
+  //fetch Data
+  const fetchUser = async () => {
+    await axios
+      .get(`/getUser`, { headers })
+      .then((res) => {
+        const value = res.data;
         const users = Object.values(value.data);
         const filteredData = users.filter((item) => item.role_id === 2);
         setUserData(filteredData);
-      }
-    } catch (error) {
-      console.error(error);
-    }
+      })
+      .catch((err) => console.error(err));
   };
 
+  //Handle Delete
   const handleDelete = async (id) => {
-    try {
-      const response = await axios.delete(`/delete/${id}`, {
-        headers: headers,
-      });
-      if (response.status === 200) {
+    await axios
+      .delete(`/delete/${id}`, { headers })
+      .then((res) => {
         setUserData(userData.filter((user) => user.id !== id));
-      }
-    } catch (error) {
-      console.error(error);
-    }
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -65,8 +59,8 @@ const Employee = () => {
       <div className="px-9 py-2 overflow-scroll overflow-x-hidden max-h-[450px] mx-10">
         <div className="inline-block min-w-full py-2 ">
           <table className="min-w-full text-left text-sm font-light">
-            <thead className="border-b font-medium dark:border-neutral-500 max-w-full">
-              <tr className="text-2xl font-bold">
+            <thead className="border-b font-medium dark:border-neutral-500 max-w-full ">
+              <tr className="text-2xl font-bold ">
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
@@ -78,20 +72,20 @@ const Employee = () => {
               {Array.isArray(userData) &&
                 userData.map((user) => (
                   <tr key={user.id}>
-                    <td className="whitespace-nowrap  font-medium">
+                    <td className="whitespace-nowrap  font-medium border pl-2 ">
                       {user.id}
                     </td>
-                    <td className="whitespace-nowrap  text-sm font-semibold">
+                    <td className="whitespace-nowrap  text-sm font-semibold border pl-2">
                       {user.name}
                     </td>
-                    <td className="whitespace-nowrap  text-sm font-semibold">
+                    <td className="whitespace-nowrap  text-sm font-semibold border pl-2">
                       {user.email}
                     </td>
-                    <td className="whitespace-nowrap  text-sm font-semibold">
+                    <td className="whitespace-nowrap  text-sm font-semibold border pl-2">
                       {user.position}
                     </td>
-                    <td className="whitespace-nowrap py-4 ">
-                      <div className="flex gap-2">
+                    <td className="whitespace-nowrap py-4 border pl-2">
+                      <div className="flex gap-2 font-bold">
                         <div className=" bg-red-800 h-[40px] w-[70px] ">
                           <Button
                             type="submit"
@@ -99,12 +93,12 @@ const Employee = () => {
                             onClick={() => handleDelete(user.id)}
                           />
                         </div>
-                        <div className="flex justify-center items-center text-white ">
+                        <div className="flex justify-center items-center text-white">
                           <Link
-                            className=" bg-blue-800 h-[40px] w-[70px]"
+                            className=" bg-blue-800 h-[40px] w-[70px] flex items-center justify-center"
                             to={`/AdminDashboard/Edit/${user.id}`}
                           >
-                            EDIT
+                            Edit
                           </Link>
                         </div>
                       </div>

@@ -9,6 +9,7 @@ const Side = () => {
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
   const handleLogout = async () => {
+
     try {
       await fetch("http://localhost:8000/api/logout", {
         method: "POST",
@@ -53,7 +54,7 @@ const Side = () => {
             }`}
           />
         </div>
-        <div className="flex flex-col gap-64 ">
+        <div className="flex flex-col gap-72 ">
           <ul className="pt-6 mt-10 ">
             {menuItem.map((items, index) => (
               <NavLink
@@ -77,7 +78,7 @@ const Side = () => {
             <img src={Logout} className="object-contain h-5 w-5" />
             <span className={`${!open && "hidden"}`}>
               <button
-                className="text-black text-lg font-semibold  ml-4 py-2 rounded-lg"
+                className="text-black text-lg font-semibold  ml-4 py-2 rounded-lg outline-none"
                 onClick={handleLogout}
               >
                 Logout
