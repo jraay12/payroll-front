@@ -13,6 +13,7 @@ const Input = (props) => {
           id={props.id}
           required
           placeholder={props.placeholder}
+          disabled={props.disabled}
           className="w-full px-4 h-full"
         ></input>
       </div>

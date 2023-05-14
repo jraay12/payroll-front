@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AddUser from "./AddUser";
-import { json, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import axios from "../api/axios";
 
@@ -99,12 +99,13 @@ const Employee = () => {
                             onClick={() => handleDelete(user.id)}
                           />
                         </div>
-                        <div className=" bg-blue-800 h-[40px] w-[70px]">
-                          <Button
-                            type="submit"
-                            label="Update"
-                            // onClick={() => navigate("/Update")}
-                          />
+                        <div className="flex justify-center items-center text-white ">
+                          <Link
+                            className=" bg-blue-800 h-[40px] w-[70px]"
+                            to={`/AdminDashboard/Edit/${user.id}`}
+                          >
+                            EDIT
+                          </Link>
                         </div>
                       </div>
                     </td>
