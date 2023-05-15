@@ -5,7 +5,7 @@ import Button from "../components/Button";
 import axios from "../api/axios";
 
 const Employee = () => {
-  
+  const navigate = useNavigate()
   const [userData, setUserData] = useState(() => {
     return [];
   });
@@ -56,10 +56,10 @@ const Employee = () => {
       <div className="flex justify-start mt-4 w-4">
         <AddUser />
       </div>
-      <div className="px-9 py-2 overflow-scroll overflow-x-hidden max-h-[450px] mx-10">
+      <div className="px-9 py-2 overflow-scroll overflow-x-hidden overscroll-y-none max-h-[450px] mx-10">
         <div className="inline-block min-w-full py-2 ">
           <table className="min-w-full text-left text-sm font-light">
-            <thead className="border-b font-medium dark:border-neutral-500 max-w-full ">
+            <thead className="-b font-medium dark:-neutral-500 max-w-full ">
               <tr className="text-2xl font-bold ">
                 <th>ID</th>
                 <th>Name</th>
@@ -71,34 +71,42 @@ const Employee = () => {
             <tbody>
               {Array.isArray(userData) &&
                 userData.map((user) => (
-                  <tr key={user.id}>
-                    <td className="whitespace-nowrap  font-medium border pl-2 ">
+                  <tr key={user.id} className="hover:bg-gray-600 hover:ease-in cursor-pointer transition ease-in duration-75" >
+                    <td className="whitespace-nowrap  font-medium  pl-2 ">
                       {user.id}
                     </td>
-                    <td className="whitespace-nowrap  text-sm font-semibold border pl-2">
+                    <td className="whitespace-nowrap  text-sm font-semibold  pl-2">
                       {user.name}
                     </td>
-                    <td className="whitespace-nowrap  text-sm font-semibold border pl-2">
+                    <td className="whitespace-nowrap  text-sm font-semibold  pl-2">
                       {user.email}
                     </td>
-                    <td className="whitespace-nowrap  text-sm font-semibold border pl-2">
+                    <td className="whitespace-nowrap  text-sm font-semibold  pl-2">
                       {user.position}
                     </td>
-                    <td className="whitespace-nowrap py-4 border pl-2">
+                    <td className="whitespace-nowrap py-4  pl-2">
                       <div className="flex gap-2 font-bold">
-                        <div className=" bg-red-800 h-[40px] w-[70px] ">
+                        <div className=" bg-red-800 h-[40px] w-[70px] hover:scale-105 rounded-lg transition ease-in-out delay-150">
                           <Button
                             type="submit"
                             label="Delete"
                             onClick={() => handleDelete(user.id)}
                           />
                         </div>
-                        <div className="flex justify-center items-center text-white">
+                        <div className=" text-white hover:scale-x-110 transition ease-in-out delay-150">
                           <Link
-                            className=" bg-blue-800 h-[40px] w-[70px] flex items-center justify-center"
+                            className=" bg-blue-800 h-[40px] w-[70px] flex items-center justify-center rounded-lg"
                             to={`/AdminDashboard/Edit/${user.id}`}
                           >
                             Edit
+                          </Link>
+                        </div>
+                        <div className=" text-white hover:scale-x-110 transition ease-in-out delay-150">
+                          <Link
+                            className=" bg-yellow-600 h-[40px] w-[70px] flex items-center justify-center rounded-lg"
+                            to={`/AdminDashboard/Payroll/${user.id}`}
+                          >
+                            Payroll
                           </Link>
                         </div>
                       </div>

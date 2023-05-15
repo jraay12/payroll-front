@@ -46,8 +46,8 @@ const Edit = () => {
       .catch((err) => console.error(err));
   };
   return (
-    <div className="flex justify-center items-center flex-col w-screen mx-10 my-10 max-h-[550px] max-w-7xl  bg-white drop-shadow-2xl shadow-2xl rounded-xl">
-      <label className="font-bold ml-4 text-2xl">Update User</label>
+    <div className="flex justify-center items-center flex-col w-screen mx-10 my-4 max-h-[550px] max-w-7xl  bg-gradient-to-r from-sky-500 to-indigo-500 drop-shadow-2xl shadow-2xl rounded-xl">
+      <label className="font-bold ml-4 text-xl">Update User</label>
       <div className="w-full mx-4 flex flex-col mt-7">
         <div className="flex justify-center items-center flex-col">
           <form onSubmit={handleUpdate}>
@@ -63,13 +63,13 @@ const Edit = () => {
               value={values.email}
               type="email"
               onChange={(e) => setValues({ ...values, email: e.target.value })}
-              disabled="true"
+              disabled={true}
             />
             <Input
               label="Position"
               value={values.position}
               type="email"
-              disabled="true"
+              disabled={true}
               onChange={(e) =>
                 setValues({ ...values, position: e.target.value })
               }
@@ -81,10 +81,10 @@ const Edit = () => {
                 setValues({ ...values, password: e.target.value })
               }
             />
-            <div className="h-[40px] mt-4 bg-blue-600 rounded-lg outline-none" >
+            <div className="h-[40px] mt-4 bg-blue-600 rounded-lg outline-none hover:bg-yellow-500 hover:text-black" >
               <Button label="Update" type="submit" />
             </div>
-            <div className="h-[40px] mt-2 bg-blue-600 rounded-lg outline-none">
+            <div className="h-[40px] mt-2 bg-blue-600 rounded-lg outline-none hover:bg-red-900">
               <Button label="Cancel" onClick={() => navigate("/AdminDashboard/Employee")} />
             </div>
           </form>
