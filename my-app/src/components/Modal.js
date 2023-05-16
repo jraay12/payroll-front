@@ -22,19 +22,16 @@ const Modal = (props) => {
     formData.append("position", position);
     formData.append("password", password);
 
-    try {
-      const response = await axios.post(`/register`, formData, { headers });
-
-      if (response.status === 201) {
+    await axios
+      .post(`/register`, formData, { headers })
+      .then((res) => {
         setIsRegistered(false);
         setTimeout(() => {
           setIsRegistered(true);
           props.onClick();
         }, 1000);
-      }
-    } catch (error) {
-      console.error(error);
-    }
+      })
+      .catch((err) => console.error(err));
   };
 
   return (

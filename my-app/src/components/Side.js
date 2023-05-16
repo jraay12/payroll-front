@@ -34,6 +34,7 @@ const Side = () => {
     try {
       await fetch("http://localhost:8000/api/logout", {
         method: "POST",
+        
       });
       sessionStorage.removeItem("access_token");
       navigate("/");

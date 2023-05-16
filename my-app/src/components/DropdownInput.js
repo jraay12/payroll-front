@@ -18,6 +18,7 @@ function Dropdown({ position, setPosition }) {
           onChange={handleOptionChange}
           className="w-full h-full"
         >
+          <option value=""></option>
           <option value="Front End">Front End</option>
           <option value="Back End">Back End</option>
           <option value="Dev Ops">Dev Ops</option>
