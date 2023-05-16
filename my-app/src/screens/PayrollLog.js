@@ -26,6 +26,7 @@ const PayrollLog = () => {
       .get(`/payroll/`, { headers })
       .then((res) => {
         setValue(res.data);
+        console.log(value)
       })
       .catch((err) => console.error(err));
   };
@@ -38,9 +39,9 @@ const PayrollLog = () => {
         <div className="px-9 py-2 overflow-scroll overflow-x-hidden overscroll-y-none max-h-[450px] mx-10">
           <div className="inline-block min-w-full py-2 ">
             <table className="min-w-full text-left text-sm font-light">
-              <thead className="-b font-medium dark:-neutral-500 max-w-full ">
+              <thead className="-b font-medium dark:-neutral-500 max-w-full">
                 <tr className="text-2xl font-bold ">
-                  <th>User ID</th>
+                  <th>Name</th>
                   <th>Rate</th>
                   <th>Month</th>
                   <th>Working Days</th>
@@ -52,10 +53,11 @@ const PayrollLog = () => {
                   value.map((item) => (
                     <tr
                       key={item.id}
-                      className="hover:bg-gray-600 hover:ease-in cursor-pointer transition ease-in duration-75"
+                      className="hover:bg-gray-600hover:ease-in cursor-pointer transition ease-in duration-75 font-semibold"
                     >
-                      <td className="whitespace-nowrap  font-medium  pl-2 border-2">
-                        {item.user_id}
+
+                      <td className="whitespace-nowrap    pl-2 border-2">
+                        {item.user.name}
                       </td>
                       <td className="whitespace-nowrap  text-sm font-semibold  pl-2 border-2">
                         {item.rate}
