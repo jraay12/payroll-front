@@ -26,56 +26,52 @@ const PayrollLog = () => {
       .get(`/payroll/`, { headers })
       .then((res) => {
         setValue(res.data);
-        console.log(value)
+        console.log(value);
       })
       .catch((err) => console.error(err));
   };
 
   return (
     <div className="flex justify-center item-center w-screen h-screen ">
-      <div className="bg-white  w-full h-[80%] mx-10 my-10 rounded-xl ">
+      <div className="flex flex-col backdrop-blur-sm rounded-xl min-h-[50%] drop-shadow-2xl shadow-2xl w-full mx-10 my-10 border-2 border-dashed ">
         <h1 className="font-bold text-xl ml-4 mt-2">LOGS</h1>
-
-        <div className="px-9 py-2 overflow-scroll overflow-x-hidden overscroll-y-none max-h-[450px] mx-10">
-          <div className="inline-block min-w-full py-2 ">
-            <table className="min-w-full text-left text-sm font-light">
-              <thead className="-b font-medium dark:-neutral-500 max-w-full">
-                <tr className="text-2xl font-bold ">
-                  <th>Name</th>
-                  <th>Rate</th>
-                  <th>Month</th>
-                  <th>Working Days</th>
-                  <th>Total hours</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Array.isArray(value) &&
-                  value.map((item) => (
-                    <tr
-                      key={item.id}
-                      className="hover:bg-gray-600hover:ease-in cursor-pointer transition ease-in duration-75 font-semibold"
-                    >
-
-                      <td className="whitespace-nowrap    pl-2 border-2">
-                        {item.user.name}
-                      </td>
-                      <td className="whitespace-nowrap  text-sm font-semibold  pl-2 border-2">
-                        {item.rate}
-                      </td>
-                      <td className="whitespace-nowrap  text-sm font-semibold  pl-2 border-2">
-                        {item.month}
-                      </td>
-                      <td className="whitespace-nowrap  text-sm font-semibold  pl-2 border-2">
-                        {item.working_days}
-                      </td>
-                      <td className="whitespace-nowrap  text-sm font-semibold  pl-2 border-2">
-                        {item.total_hours_overtime}
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
+        <div className="py-2 overscroll-scroll overflow-x-hidden max-h-[450px] px-10">
+          <table className="min-w-full text-left text-sm font-light">
+            <thead>
+              <tr className="font-bold text-left">
+                <th>Name</th>
+                <th>Rate</th>
+                <th>Month</th>
+                <th>Working Days</th>
+                <th>Overtime Hours</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array.isArray(value) &&
+                value.map((item) => (
+                  <tr
+                    key={item.payroll.id}
+                    className="hover:bg-gray-600hover:ease-in cursor-pointer transition ease-in duration-75 font-semibold"
+                  >
+                    <td className="whitespace-nowrap    pl-2 border-2">
+                      {item.user}
+                    </td>
+                    <td className="whitespace-nowrap  text-sm font-semibold  pl-2 border-2">
+                      {item.payroll.rate}
+                    </td>
+                    <td className="whitespace-nowrap  text-sm font-semibold  pl-2 border-2">
+                      {item.payroll.month}
+                    </td>
+                    <td className="whitespace-nowrap  text-sm font-semibold  pl-2 border-2">
+                      {item.payroll.working_days}
+                    </td>
+                    <td className="whitespace-nowrap  text-sm font-semibold  pl-2 border-2">
+                      {item.payroll.total_hours_overtime}
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

@@ -54,6 +54,11 @@ const Side = () => {
       name: "Payroll Logs",
       src: Logs,
     },
+    {
+      path: "/AdminDashboard/Register",
+      name: "Register Employee",
+      src: Logs,
+    },
   ];
   return (
     <div className="flex shadow-2xl bg-white">

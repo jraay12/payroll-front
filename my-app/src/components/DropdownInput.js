@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Dropdown({ position, setPosition }) {
+function Dropdown({ value, setPosition}) {
   const handleOptionChange = (event) => {
     setPosition(event.target.value);
   };
@@ -14,7 +14,7 @@ function Dropdown({ position, setPosition }) {
       >
         <select
           id="options"
-          value={position}
+          value={value}
           onChange={handleOptionChange}
           className="w-full h-full"
         >

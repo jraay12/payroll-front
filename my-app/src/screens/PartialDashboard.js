@@ -11,7 +11,7 @@ const PartialDashboard = () => {
   }, [])
 
   return (
-    <div className="flex h-screen bg-background bg w-screen ">
+    <div className="flex min-h-screen bg-background bg-cover w-screen ">
       <Side/>
       <Outlet/>
     </div>

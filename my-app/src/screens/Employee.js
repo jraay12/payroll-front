@@ -51,74 +51,65 @@ const Employee = () => {
   };
 
   return (
-    <div className="flex justify-center items-center w-screen h-screen">
-      <div className="w-full mx-10 my-10 min-h-[85%] bg-white drop-shadow-2xl shadow-2xl rounded-xl">
-        <div className="flex justify-start mt-4 w-4">
-          <AddUser />
-        </div>
-        <div className="px-9 py-2 overflow-scroll overflow-x-hidden overscroll-y-none max-h-[450px] mx-10">
-          <div className="inline-block min-w-full py-2 ">
-            <table className="min-w-full text-left text-sm font-light">
-              <thead className="-b font-medium dark:-neutral-500 max-w-full ">
-                <tr className="text-2xl font-bold ">
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th className="">Position</th>
-                  <th className="px-8">Option</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Array.isArray(userData) &&
-                  userData.map((user) => (
-                    <tr
-                      key={user.id}
-                      className="hover:bg-gray-600 hover:ease-in cursor-pointer transition ease-in duration-75"
-                    >
-                      <td className="whitespace-nowrap  font-medium  pl-2 ">
-                        {user.id}
-                      </td>
-                      <td className="whitespace-nowrap  text-sm font-semibold  pl-2">
-                        {user.name}
-                      </td>
-                      <td className="whitespace-nowrap  text-sm font-semibold  pl-2">
-                        {user.email}
-                      </td>
-                      <td className="whitespace-nowrap  text-sm font-semibold  pl-2">
-                        {user.position}
-                      </td>
-                      <td className="whitespace-nowrap py-4  pl-2">
-                        <div className="flex gap-2 font-bold">
-                          <div className=" bg-red-800 h-[40px] w-[70px] hover:scale-x-110 rounded-lg ">
-                            <Button
-                              type="submit"
-                              label="Delete"
-                              onClick={() => handleDelete(user.id)}
-                            />
-                          </div>
-                          <div className=" text-white hover:scale-x-110 ">
-                            <Link
-                              className=" bg-blue-800 h-[40px] w-[70px] flex items-center justify-center rounded-lg"
-                              to={`/AdminDashboard/Edit/${user.id}`}
-                            >
-                              Edit
-                            </Link>
-                          </div>
-                          <div className=" text-white hover:scale-x-110 transition ease-in-out delay-150">
-                            <Link
-                              className=" bg-yellow-600 h-[40px] w-[70px] flex items-center justify-center rounded-lg"
-                              to={`/AdminDashboard/Payroll/${user.id}`}
-                            >
-                              Payroll
-                            </Link>
-                          </div>
+    <div className="flex w-screen h-screen justify-center items-center ">
+      <div className="flex flex-col backdrop-blur-sm drop-shadow-2xl shadow-2xl rounded-xl min-h-[50%] w-full mx-10 my-10 border-2 border-dashed">
+        <div className=" py-2 overflow-auto overflow-x-hidden px-10">
+          <table className="min-w-full text-left text-sm font-bold text-white ">
+            <thead >
+              <tr className="font-bold text-left">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Position</th>
+                <th className="pl-20">Options</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array.isArray(userData) &&
+                userData.map((user) => (
+                  <tr
+                    key={user.id}
+                    className="hover:bg-gray-600 hover:ease-in cursor-pointer transition ease-in duration-75"
+                  >
+                    <td className=" font-medium   ">{user.id}</td>
+                    <td className="text-sm font-semibold  ">{user.name}</td>
+                    <td className="text-sm font-semibold  ">
+                      {user.email}
+                    </td>
+                    <td className="text-sm font-semibold  ">
+                      {user.position}
+                    </td>
+                    <td className=" py-4  ">
+                      <div className="flex gap-2 font-bold">
+                        <div className=" bg-red-800 h-[40px] w-[70px] hover:scale-x-110 rounded-lg ">
+                          <Button
+                            type="submit"
+                            label="Delete"
+                            onClick={() => handleDelete(user.id)}
+                          />
                         </div>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
+                        <div className=" text-white hover:scale-x-110 ">
+                          <Link
+                            className=" bg-blue-800 h-[40px] w-[70px] flex items-center justify-center rounded-lg"
+                            to={`/AdminDashboard/Edit/${user.id}`}
+                          >
+                            Edit
+                          </Link>
+                        </div>
+                        <div className=" text-white hover:scale-x-110 transition ease-in-out delay-150">
+                          <Link
+                            className=" bg-yellow-600 h-[40px] w-[70px] flex items-center justify-center rounded-lg"
+                            to={`/AdminDashboard/Payroll/${user.id}`}
+                          >
+                            Payroll
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

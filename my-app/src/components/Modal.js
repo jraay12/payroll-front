@@ -9,7 +9,6 @@ const Modal = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [position, setPosition] = useState("");
-  const [isRegistered, setIsRegistered] = useState(true);
 
   let access_token = sessionStorage.getItem("access_token");
   const headers = { Authorization: `Bearer ${access_token}` };
@@ -36,39 +35,13 @@ const Modal = (props) => {
 
   return (
     <div>
-      {isRegistered && (
-        <div className="flex flex-col items-center h-[470px] w-[400px] bg-gradient-to-r from-sky-500 to-indigo-500 drop-shadow-2xl shadow-2xl gap-10 rounded-2xl mt-2">
-          <label className="font-bold mt-4 text-2xl">Add User</label>
-          <div className="w-full mx-4 flex flex-col gap-4">
-            <form onSubmit={(e) => handleRegister(e)} method="POST">
-              <Input
-                placeholder="John Ray"
-                label="Name"
-                type="name"
-                onChange={(e) => setName(e.target.value)}
-              />
-              <Input
-                placeholder="John@gmail.com"
-                label="Email"
-                type="email"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <DropdownInput position={position} setPosition={setPosition} />
-              <Input
-                label="Password"
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <div className="h-[40px] mt-2">
-                <Button label="Create" type="submit" />
-              </div>
-              <div className="h-[40px] mt-2 w-full">
-                <Button onClick={props.onClick} label="Cancel" />
-              </div>
-            </form>
-          </div>
+      <div className="flex w-screen h-">
+        <div className="flex flex-col items-center bg-gradient-to-r h-screen w-screen from-sky-500 to-indigo-500 drop-shadow-2xl shadow-2xl gap-10 rounded-2xl mt-2">
+          <label className="font-bold mt-4 text-2xl">
+            Employee Registration
+          </label>
         </div>
-      )}
+      </div>
     </div>
   );
 };
