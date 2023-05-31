@@ -43,7 +43,7 @@ const Employee = () => {
   //Handle Delete
   const handleDelete = async (id) => {
     await axios
-      .delete(`/delete/${id}`, { headers })
+      .delete(`/users/${id}`, { headers })
       .then((res) => {
         setUserData(userData.filter((user) => user.id !== id));
       })
@@ -102,6 +102,14 @@ const Employee = () => {
                             to={`/AdminDashboard/Payroll/${user.id}`}
                           >
                             Payroll
+                          </Link>
+                        </div>
+                        <div className=" text-white hover:scale-x-110 transition ease-in-out delay-150">
+                          <Link
+                            className=" bg-yellow-600 h-[40px] w-[100px] flex items-center justify-center rounded-lg"
+                            to={`/AdminDashboard/UpdateRate/${user.id}`}
+                          >
+                            Update Rate
                           </Link>
                         </div>
                       </div>

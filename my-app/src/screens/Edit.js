@@ -14,39 +14,26 @@ const Edit = () => {
   };
   const { id } = useParams();
   const [values, setValues] = useState({
-    id: id,
     name: "",
     password: "",
     position: "",
-    email: "",
+    contact_number: "",
   });
 
-  useEffect(() => {
-    axios
-      .get(`/searchUser/` + id, { headers })
-      .then((res) => {
-        setValues({
-          ...values,
-          name: res.data.name,
-          email: res.data.email,
-          position: res.data.position,
-        });
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  
 
   const handleUpdate = (e) => {
     e.preventDefault();
 
     axios
-      .put(`/update/${id}`, values, { headers })
+      .put(`/users/` + id, values, { headers })
       .then((res) => {
         navigate("/AdminDashboard/Employee");
       })
       .catch((err) => console.error(err));
   };
   return (
-    <div className="flex justify-center items-center flex-col w-screen mx-10 my-4 max-h-[550px] max-w-7xl  bg-gradient-to-r from-sky-500 to-indigo-500 drop-shadow-2xl shadow-2xl rounded-xl">
+    <div className="flex justify-center items-center flex-col w-screen mx-10 my-4 max-h-[550px] max-w-7xl backdrop-blur-sm  drop-shadow-2xl shadow-2xl rounded-xl">
       <label className="font-bold ml-4 text-xl">Update User</label>
       <div className="w-full mx-4 flex flex-col mt-7">
         <div className="flex justify-center items-center flex-col">
@@ -54,22 +41,17 @@ const Edit = () => {
             <Input
               label="Name"
               type="name"
-              value={values.name}
               onChange={(e) => setValues({ ...values, name: e.target.value })}
             />
 
             <Input
-              label="Email"
-              value={values.email}
-              type="email"
-              onChange={(e) => setValues({ ...values, email: e.target.value })}
-              disabled={true}
+              label="Contact Number"
+              type="number"
+              onChange={(e) => setValues({ ...values, contact_number: e.target.value })}
             />
             <Input
               label="Position"
-              value={values.position}
-              type="email"
-              disabled={true}
+              type="text"
               onChange={(e) =>
                 setValues({ ...values, position: e.target.value })
               }

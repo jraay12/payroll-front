@@ -7,6 +7,7 @@ import Employee from "./screens/Employee";
 import Edit from "./screens/Edit";
 import Payroll from "./screens/Payroll";
 import PayrollLog from "./screens/PayrollLog";
+import UpdateRate from "./screens/UpdateRate";
 function App() {
   return (
     <Routes>
@@ -18,6 +19,7 @@ function App() {
         <Route path="Register" element={<AddUser />} />
         <Route path="PayrollLog" element={<PayrollLog />} />
         <Route path="Edit/:id" element={<Edit />} />
+        <Route path="UpdateRate/:id" element={<UpdateRate />} />
       </Route>
     </Routes>
   );

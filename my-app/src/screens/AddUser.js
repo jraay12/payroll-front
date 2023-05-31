@@ -19,6 +19,7 @@ const AddUser = () => {
     zip_code: "",
     state: "",
     country: "",
+    rate:""
   });
   const handleRegister = (e) => {
     e.preventDefault();
@@ -52,8 +53,12 @@ const AddUser = () => {
               <div className="w-[30%] ">
                 <Input label="Contact Number" placeholder="Contact Number" onChange={(e) => setValue({...value, contact_number: e.target.value})}/>
               </div>
-              <div className="w-[30%]">
+              <div className="w-[20%]">
               <Input label="Position" placeholder="Position" onChange={(e) => setValue({...value, position: e.target.value})}/>
+
+              </div>
+              <div className="w-[10%]">
+              <Input label="Rate" placeholder="Rate" onChange={(e) => setValue({...value, rate  : e.target.value})}/>
 
               </div>
             </div>

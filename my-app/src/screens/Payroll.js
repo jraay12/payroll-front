@@ -14,7 +14,6 @@ const Payroll = () => {
 
   const [values, setValues] = useState({
     user_id: id,
-    rate: "",
     month: "",
     working_days: "",
     total_hours_overtime: "",
@@ -35,14 +34,6 @@ const Payroll = () => {
     <div className="flex justify-center items-center h-screen w-screen ">
       <div className="backdrop-blur-sm border-2 border-dashed rounded-3xl border-black min-h-[60%] w-96 mx-10">
         <form onSubmit={handlePayroll}>
-          <div className="border-none outline-none ">
-            <Input
-              type="number"
-              name="Rate"
-              label="Rate"
-              onChange={(e) => setValues({ ...values, rate: e.target.value })}
-            />
-          </div>
           <div className="border-none outline-none">
             <Input
               label="Month"

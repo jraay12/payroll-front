@@ -57,7 +57,7 @@ const PayrollLog = () => {
                       {item.user}
                     </td>
                     <td className="whitespace-nowrap  text-sm font-semibold  pl-2 border-2">
-                      {item.payroll.rate}
+                      {item.rate}
                     </td>
                     <td className="whitespace-nowrap  text-sm font-semibold  pl-2 border-2">
                       {item.payroll.month}
