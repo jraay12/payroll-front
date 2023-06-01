@@ -31,6 +31,10 @@ const PayrollLog = () => {
       .catch((err) => console.error(err));
   };
 
+  const practice = () => {
+    console.log("Success")
+  }
+
   return (
     <div className="flex justify-center item-center w-screen h-screen ">
       <div className="flex flex-col backdrop-blur-sm rounded-xl min-h-[50%] drop-shadow-2xl shadow-2xl w-full mx-10 my-10 border-2 border-dashed ">
@@ -46,7 +50,7 @@ const PayrollLog = () => {
                 <th>Overtime Hours</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody onClick={practice}>
               {Array.isArray(value) &&
                 value.map((item) => (
                   <tr
