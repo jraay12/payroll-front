@@ -36,6 +36,7 @@ const Employee = () => {
         const users = Object.values(value.data);
         const filteredData = users.filter((item) => item.role_id === 2);
         setUserData(filteredData);
+        
       })
       .catch((err) => console.error(err));
   };

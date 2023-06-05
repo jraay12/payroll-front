@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "../api/axios";
+import SalaryLogs from "./SalaryLogs";
+import Button from "../components/Button";
 const PayrollLog = () => {
   let access_token = sessionStorage.getItem("access_token");
+  const [openModal, setOpenModal] = useState(() => {
+    return false;
+  })
   const [value, setValue] = useState(() => {
     return [];
   });
@@ -31,13 +36,16 @@ const PayrollLog = () => {
       .catch((err) => console.error(err));
   };
 
-  const practice = () => {
-    console.log("Success")
+  const practice = (props) => {
+    setOpenModal(true)
+    {openModal && <SalaryLogs  />}
+    
+
   }
 
   return (
-    <div className="flex justify-center item-center w-screen h-screen ">
-      <div className="flex flex-col backdrop-blur-sm rounded-xl min-h-[50%] drop-shadow-2xl shadow-2xl w-full mx-10 my-10 border-2 border-dashed ">
+    <div className="flex justify-center item-center w-screen h-screen">
+      <div className="flex flex-col backdrop-blur-sm rounded-xl min-h-[50%] drop-shadow-2xl  shadow-2xl w-full mx-10 my-10 border-2 border-dashed ">
         <h1 className="font-bold text-xl ml-4 mt-2">LOGS</h1>
         <div className="py-2 overscroll-scroll overflow-x-hidden max-h-[450px] px-10">
           <table className="min-w-full text-left text-sm font-light">
@@ -48,9 +56,11 @@ const PayrollLog = () => {
                 <th>Month</th>
                 <th>Working Days</th>
                 <th>Overtime Hours</th>
+                <th>Option</th>
+
               </tr>
             </thead>
-            <tbody onClick={practice}>
+            <tbody>
               {Array.isArray(value) &&
                 value.map((item) => (
                   <tr
@@ -72,10 +82,22 @@ const PayrollLog = () => {
                     <td className="whitespace-nowrap  text-sm font-semibold  pl-2 border-2">
                       {item.payroll.total_hours_overtime}
                     </td>
+                    <td className="whitespace-nowrap  text-sm font-semibold  pl-2 border-2">
+                      <Button 
+                      label = "View"
+                      onClick = {() => {
+                        setOpenModal(true)
+                      }}
+                      />
+                    </td>
                   </tr>
                 ))}
             </tbody>
           </table>
+          <div className="flex justify-center">
+{openModal && <SalaryLogs onClick={() => setOpenModal(false)} />}
+
+</div>
         </div>
       </div>
     </div>

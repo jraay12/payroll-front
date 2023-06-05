@@ -20,7 +20,7 @@ const Edit = () => {
     contact_number: "",
   });
 
-  
+ 
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -32,6 +32,17 @@ const Edit = () => {
       })
       .catch((err) => console.error(err));
   };
+
+  useEffect(() => {
+    axios.get(`/getUser`, {headers}).then(res => {
+      const value = Object.values(res.data.data)
+      const filterData = value.filter((item) => item.id == id)
+      console.log(filterData)
+    }).catch(err => console.error(err))
+
+  }, [])
+
+  
   return (
     <div className="flex justify-center items-center flex-col w-screen mx-10 my-4 max-h-[550px] max-w-7xl backdrop-blur-sm  drop-shadow-2xl shadow-2xl rounded-xl">
       <label className="font-bold ml-4 text-xl">Update User</label>
