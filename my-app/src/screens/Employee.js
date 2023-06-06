@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import AddUser from "./AddUser";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "../components/Button";
 import axios from "../api/axios";
+import { useQuery } from "@tanstack/react-query";
+
 
 const Employee = () => {
-  const navigate = useNavigate();
-  const [userData, setUserData] = useState(() => {
-    return [];
-  });
 
   let access_token = sessionStorage.getItem("access_token");
   const headers = {
@@ -16,29 +14,17 @@ const Employee = () => {
     "Content-Type": "application/json",
   };
 
-  useEffect(() => {
-    const delay = 500;
-    const timerId = setTimeout(() => {
-      fetchUser();
-    }, delay);
 
-    return () => {
-      clearTimeout(timerId);
-    };
-  }, [userData]);
+  const { data: UserData  } = useQuery(["id"], async() => {
+    const response =  await axios.get(`/getUser`, { headers });
+    return response.data.data.filter((item) => item.role_id === 2)
+    
+  }, {
+    refetchInterval: 1000,
+    refetchIntervalInBackground: true
+  });
 
-  //fetch Data
-  const fetchUser = async () => {
-    await axios
-      .get(`/getUser`, { headers })
-      .then((res) => {
-        const users = Object.values(res.data.data);
-        const filteredData = users.filter((item) => item.role_id === 2);
-        setUserData(filteredData);
-        
-      })
-      .catch((err) => console.error(err));
-  };
+ 
 
 
   //Handle Delete
@@ -46,18 +32,18 @@ const Employee = () => {
     await axios
       .delete(`/users/${id}`, { headers })
       .then((res) => {
-        setUserData(userData.filter((user) => user.id !== id));
+        console.log("Deleted Succesfully")
       })
       .catch((err) => console.error(err));
   };
 
   return (
-    <div className="flex w-screen h-screen justify-center items-center ">
-      <div className="flex flex-col backdrop-blur-sm drop-shadow-2xl shadow-2xl rounded-xl min-h-[50%] w-full mx-10 my-10 border-2 border-dashed">
+    <div className="flex h-screen justify-center items-center w-full">
+      <div className="flex flex-col backdrop-blur-sm drop-shadow-2xl shadow-2xl rounded-xl min-h-[80%] w-full mx-10 my-10 border-2 border-dashed">
         <div className=" py-2 overflow-auto overflow-x-hidden px-10">
-          <table className="min-w-full text-left text-sm font-bold text-white ">
+          <table className="min-w-full text-justify text-sm font-bold text-white px-20">
             <thead >
-              <tr className="font-bold text-left">
+              <tr className="font-bold">
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
@@ -66,11 +52,11 @@ const Employee = () => {
               </tr>
             </thead>
             <tbody>
-              {Array.isArray(userData) &&
-                userData.map((user) => (
+              {Array.isArray(UserData) &&
+                UserData.map((user) => (
                   <tr
                     key={user.id}
-                    className="hover:bg-gray-600 hover:ease-in cursor-pointer transition ease-in duration-75"
+                    className="hover:bg-gray-600 hover:ease-in cursor-pointer"
                   >
                     <td className=" font-medium   ">{user.id}</td>
                     <td className="text-sm font-semibold  ">{user.name}</td>

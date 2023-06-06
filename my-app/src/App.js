@@ -8,8 +8,13 @@ import Edit from "./screens/Edit";
 import Payroll from "./screens/Payroll";
 import PayrollLog from "./screens/PayrollLog";
 import UpdateRate from "./screens/UpdateRate";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 function App() {
+
+  const client = new QueryClient();
   return (
+    <QueryClientProvider client={client}>
     <Routes>
       <Route path="/" exact element={<Login />} />
       <Route path="/Create" element={<AddUser />} />
@@ -22,6 +27,7 @@ function App() {
         <Route path="UpdateRate/:id" element={<UpdateRate />} />
       </Route>
     </Routes>
+    </QueryClientProvider>
   );
 }
 

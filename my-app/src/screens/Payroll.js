@@ -31,7 +31,7 @@ const Payroll = () => {
   };
   
   return (
-    <div className="flex justify-center items-center h-screen w-screen ">
+    <div className="flex justify-center items-center h-screen w-full ">
       <div className="backdrop-blur-sm border-2 border-dashed rounded-3xl border-black min-h-[60%] w-96 mx-10">
         <form onSubmit={handlePayroll}>
           <div className="border-none outline-none">

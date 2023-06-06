@@ -2,44 +2,32 @@ import React, { useEffect, useState } from "react";
 import axios from "../api/axios";
 import SalaryLogs from "./SalaryLogs";
 import Button from "../components/Button";
+import { useQuery } from "@tanstack/react-query";
 const PayrollLog = () => {
   let access_token = sessionStorage.getItem("access_token");
   const [openModal, setOpenModal] = useState(() => {
     return false;
   })
-  const [value, setValue] = useState(() => {
-    return [];
-  });
+  
   const headers = {
     Authorization: `Bearer ${access_token}`,
     "Content-Type": "application/json",
   };
 
-  useEffect(() => {
-    const delay = 500;
-    const timerId = setTimeout(() => {
-      fetchPayroll();
-    }, delay);
 
-    return () => {
-      clearTimeout(timerId);
-    };
-  }, [value]);
-
-  const fetchPayroll = () => {
-    axios
-      .get(`/payroll/`, { headers })
-      .then((res) => {
-        setValue(res.data);
-      })
-      .catch((err) => console.error(err));
-  };
+  const {data:Payroll } = useQuery(["rate"], async () =>{
+    const response = await axios.get(`/payroll/`, {headers});
+    return response.data
+  }, {
+    refetchInterval: 500,
+    refetchIntervalInBackground: true
+  })
 
  
 
   return (
-    <div className="flex justify-center item-center w-screen h-screen">
-      <div className="flex flex-col backdrop-blur-sm rounded-xl min-h-[50%] drop-shadow-2xl  shadow-2xl w-full mx-10 my-10 border-2 border-dashed ">
+    <div className="flex justify-center item-center w-full h-screen">
+      <div className="flex flex-col backdrop-blur-sm rounded-xl min-h-[50%] drop-shadow-2xl  shadow-2xl  w-full mx-10 my-10 border-2 border-dashed ">
         <h1 className="font-bold text-xl ml-4 mt-2">LOGS</h1>
         <div className="py-2 overscroll-scroll overflow-x-hidden max-h-[450px] px-10">
           <table className="min-w-full text-left text-sm font-light">
@@ -55,8 +43,8 @@ const PayrollLog = () => {
               </tr>
             </thead>
             <tbody>
-              {Array.isArray(value) &&
-                value.map((item) => (
+              {Array.isArray(Payroll) &&
+                Payroll.map((item) => (
                   <tr
                     key={item.payroll.id}
                     className="hover:bg-gray-600hover:ease-in cursor-pointer transition ease-in duration-75 font-semibold"
