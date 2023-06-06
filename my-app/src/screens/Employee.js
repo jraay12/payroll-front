@@ -32,8 +32,7 @@ const Employee = () => {
     await axios
       .get(`/getUser`, { headers })
       .then((res) => {
-        const value = res.data;
-        const users = Object.values(value.data);
+        const users = Object.values(res.data.data);
         const filteredData = users.filter((item) => item.role_id === 2);
         setUserData(filteredData);
         
