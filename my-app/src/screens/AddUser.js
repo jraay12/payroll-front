@@ -39,7 +39,7 @@ const AddUser = () => {
         <form onSubmit={handleRegister}>
           <div className="flex flex-col gap-2 flex-wrap">
             <div className="flex mt-5">
-              <div className="w-[50%] ">
+              <div className="w-[50%]">
                 <Input placeholder="Name" label="Name" onChange={(e) => setValue({...value, name: e.target.value})} />
               </div>
               <div className="w-[50%]">

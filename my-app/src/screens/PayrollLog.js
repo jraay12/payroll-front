@@ -31,17 +31,11 @@ const PayrollLog = () => {
       .get(`/payroll/`, { headers })
       .then((res) => {
         setValue(res.data);
-        console.log(value);
       })
       .catch((err) => console.error(err));
   };
 
-  const practice = (props) => {
-    setOpenModal(true)
-    {openModal && <SalaryLogs  />}
-    
-
-  }
+ 
 
   return (
     <div className="flex justify-center item-center w-screen h-screen">

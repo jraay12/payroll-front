@@ -37,7 +37,7 @@ const Edit = () => {
     axios.get(`/getUser`, {headers}).then(res => {
       const value = Object.values(res.data.data)
       const filterData = value.filter((item) => item.id == id)
-      setValues({...values, name: filterData[0].name, position: filterData[0].position})
+      setValues({...values, name: filterData[0].name, position: filterData[0].position, contact_number: filterData[0].contact_number})
     }).catch(err => console.error(err))
 
   }, [])
@@ -52,17 +52,20 @@ const Edit = () => {
             <Input
               label="Name"
               type="name"
+              value={values.name}
               onChange={(e) => setValues({ ...values, name: e.target.value })}
             />
 
             <Input
               label="Contact Number"
               type="number"
+              value={values.contact_number}
               onChange={(e) => setValues({ ...values, contact_number: e.target.value })}
             />
             <Input
               label="Position"
               type="text"
+              value={values.position}
               onChange={(e) =>
                 setValues({ ...values, position: e.target.value })
               }
