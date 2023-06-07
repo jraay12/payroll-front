@@ -7,8 +7,9 @@ import Employee from "./screens/Employee";
 import Edit from "./screens/Edit";
 import Payroll from "./screens/Payroll";
 import PayrollLog from "./screens/PayrollLog";
+import SalaryLogs from "./screens/SalaryLogs";
 import UpdateRate from "./screens/UpdateRate";
-
+import User from "./screens/User";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 function App() {
@@ -26,7 +27,9 @@ function App() {
         <Route path="PayrollLog" element={<PayrollLog />} />
         <Route path="Edit/:id" element={<Edit />} />
         <Route path="UpdateRate/:id" element={<UpdateRate />} />
+        <Route path="SalaryLogs/:id" element={<SalaryLogs />} />
       </Route>
+      <Route path="/UserDashboard" element={<User />} />
     </Routes>
     </QueryClientProvider>
   );

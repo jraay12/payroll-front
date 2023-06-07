@@ -53,7 +53,11 @@ function Login() {
           const data = res.data;
           const token = data.data.token;
           sessionStorage.setItem("access_token", token);
-          navigate("/AdminDashboard/Employee");
+          if (data.data.user.role_id == 1){
+            navigate('/AdminDashboard/Employee')
+          }else{
+            navigate('/UserDashboard')
+          }
         })
         .catch((err) => {
           console.error(err);
