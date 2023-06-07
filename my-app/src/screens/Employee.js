@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Button from "../components/Button";
 import axios from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
+import Loader from "../components/Loader";
 
 
 const Employee = () => {
@@ -15,7 +16,7 @@ const Employee = () => {
   };
 
 
-  const { data: UserData  } = useQuery(["name"], async() => {
+  const { data: UserData, isLoading  } = useQuery(["name"], async() => {
     const response =  await axios.get(`/getUser`, { headers });
     return response.data.data.filter((item) => item.role_id === 2)
     
@@ -38,8 +39,8 @@ const Employee = () => {
   return (
     <div className="flex h-screen justify-center items-center w-full">
       <div className="flex flex-col backdrop-blur-sm drop-shadow-2xl shadow-2xl rounded-xl min-h-[80%] w-[80%] mx-10 my-10 border-2 border-dashed">
-        <div className=" py-2 overflow-auto overflow-x-hidden px-10">
-          <table className="min-w-full text-justify text-sm font-bold text-white px-20">
+      <div className={`${isLoading && "flex flex-col mt-40 items-center justify-center"} py-2 overflow-auto overflow-x-hidden px-10`}>
+          {isLoading ? (<Loader />) : ( <> <table className="min-w-full text-justify text-sm font-bold text-white px-20">
             <thead >
               <tr className="font-bold">
                 <th>ID</th>
@@ -103,6 +104,7 @@ const Employee = () => {
                 ))}
             </tbody>
           </table>
+          </>)}
         </div>
       </div>
     </div>

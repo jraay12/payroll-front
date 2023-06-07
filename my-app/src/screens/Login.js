@@ -56,7 +56,8 @@ function Login() {
           if (data.data.user.role_id == 1){
             navigate('/AdminDashboard/Employee')
           }else{
-            navigate('/UserDashboard')
+            const userId = data.data.user.id
+            navigate(`/UserDashboard/User/${userId}`)
           }
         })
         .catch((err) => {
@@ -66,7 +67,7 @@ function Login() {
             theme: "dark",
           });
         });
-
+        
     }
   };
 

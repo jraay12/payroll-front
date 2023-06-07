@@ -3,6 +3,7 @@ import Button from '../components/Button'
 import { useNavigate, useParams } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
 import axios from '../api/axios'
+import Loader from '../components/Loader'
 
 const SalaryLogs = (props) => {
 const navigate = useNavigate()
@@ -13,13 +14,10 @@ const navigate = useNavigate()
   };
 
   const {id} = useParams()
-  const {data, isLoading} = useQuery(["id"], async() =>{
+  const {data, isLoading, refetch} = useQuery(["id"], async() =>{
     const response = await axios.get(`/salary/` + id, {headers})
     const value = Object.values(response.data)
     return value
-  },{
-    refetchInterval: 1000,
-    refetchIntervalInBackground: true
   })
   
 
@@ -28,8 +26,9 @@ const navigate = useNavigate()
     <div className='w-full h-screen flex justify-center items-center'>
       <div className='min-h-[80%] min-w-[80%] backdrop-blur-sm rounded-3xl flex flex-col justify-start '>
         <h1 className='text-5xl font-bold mx-6 my-2 text-white mb-6'>Salary</h1>
-        {isLoading && <div>Loading....</div>}
+        
         <table className="min-w-full text-justify text-sm font-bold text-white px-20">
+        {isLoading && <Loader />}
             <thead >
               <tr className="font-bold text-3xl text-black">
                 <th className='border-2'>Gross Salary</th>
@@ -51,7 +50,9 @@ const navigate = useNavigate()
           </table>
 
         <h1 className='text-5xl font-bold mx-6 my-10 text-red-500 mb-6'>Deduction</h1>
+       
         <table className="min-w-full text-justify text-sm font-bold text-white px-20">
+        {isLoading && <Loader />}
             <thead >
               <tr className="font-bold text-2xl text-black">
                 <th className='border-2'>Pag-ibig</th>
@@ -81,7 +82,10 @@ const navigate = useNavigate()
         <div className='w-20 rounded-md flex justify-center bg-red-700 mt-20 py-2'>
           <Button 
           label = "Return"
-          onClick={() => navigate("/AdminDashboard/PayrollLog")}
+          onClick={() => {
+            refetch()
+            navigate("/AdminDashboard/PayrollLog")
+          }}
           />
         </div>
       </div>

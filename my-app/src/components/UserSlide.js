@@ -1,16 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import Control from "../images/control.png";
 import Logo from "../images/logo.png";
 import User from "../images/User.png";
-import Logs from "../images/Folder.png";
 import Logout from "../images/logout.png";
 
-const Side = () => {
+const UserSlide = () => {
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
   const sidebarRef = useRef(null);
-
+  const {id} = useParams()
   useEffect(() => {
     const handleResize = () => {
       const screenWidth = window.innerWidth;
@@ -44,20 +43,11 @@ const Side = () => {
 
   const menuItem = [
     {
-      path: "/AdminDashboard/Employee",
-      name: "Employee",
+      path: `/UserDashboard/User/${id}`,
+      name: "Salary",
       src: User,
     },
-    {
-      path: "/AdminDashboard/PayrollLog",
-      name: "Payroll Logs",
-      src: Logs,
-    },
-    {
-      path: "/AdminDashboard/Register",
-      name: "Register Employee",
-      src: Logs,
-    },
+   
   ];
   return (
     <div className="flex shadow-2xl bg-white">
@@ -119,6 +109,6 @@ const Side = () => {
   );
 };
 
-export default Side;
+export default UserSlide;
 
 
