@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import { useNavigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
 const UpdateRate = () => {
     const navigate = useNavigate();
 

@@ -16,15 +16,14 @@ const Employee = () => {
 
 
   const { data: UserData  } = useQuery(["id"], async() => {
-    const response =  await axios.get(`/getUser`, { headers });
+    const response =   await axios.get(`/getUser`, { headers });
     return response.data.data.filter((item) => item.role_id === 2)
     
   }, {
+    refetchOnMount: true,
     refetchInterval: 1000,
     refetchIntervalInBackground: true
   });
-
- 
 
 
   //Handle Delete
