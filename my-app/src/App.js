@@ -9,6 +9,7 @@ import Payroll from "./screens/Payroll";
 import PayrollLog from "./screens/PayrollLog";
 import UpdateRate from "./screens/UpdateRate";
 
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 function App() {
 
