@@ -18,6 +18,14 @@ const navigate = useNavigate()
     const response = await axios.get(`/salary/` + id, {headers})
     const value = Object.values(response.data)
     return value
+  },{
+        refetchInterval: 2000,
+        keepPreviousData:false,
+        cacheTime:10,
+        refetchIntervalInBackground:true,
+        refetchOnMount:true,
+        refetchOnWindowFocus:true
+    
   })
   
 
@@ -28,7 +36,7 @@ const navigate = useNavigate()
         <h1 className='text-5xl font-bold mx-6 my-2 text-white mb-6'>Salary</h1>
         
         <table className="min-w-full text-justify text-sm font-bold text-white px-20">
-        {isLoading && <Loader />}
+        {isLoading &&  <Loader />}
             <thead >
               <tr className="font-bold text-3xl text-black">
                 <th className='border-2'>Gross Salary</th>
@@ -83,8 +91,9 @@ const navigate = useNavigate()
           <Button 
           label = "Return"
           onClick={() => {
-            refetch()
+          
             navigate("/AdminDashboard/PayrollLog")
+            refetch()
           }}
           />
         </div>

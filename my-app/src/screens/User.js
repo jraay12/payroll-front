@@ -27,31 +27,42 @@ const User = () => {
         return value
       },
       {
-        refetchInterval: 500,
-        refetchIntervalInBackground:true
+        refetchInterval: 100,
+        staleTime:500,
+        cacheTime:100,
+        refetchIntervalInBackground:true,
+        refetchOnMount:true,
+        refetchOnWindowFocus:true
       })
 
 
       const {data: User} = useQuery(["name"], async()=>{
         const response = await axios.get(`/getUser` , {headers})
-        return response.data.data
+        const value = Object.values(response.data)
+        return value[2].name
       },
       {
         refetchInterval: 500,
+        cacheTime:100,
+        staleTime:500,
+        keepPreviousData:false,
         refetchIntervalInBackground:true
       })
+      
       
 
       
   return (
     <div className='flex w-full  min-h-screen bg-background justify-center items-center'>
       <div className='flex flex-col w-[80%] min-h-[70%] bg-gray-400 rounded-2xl'>
-          <h1 className='text-3xl mx-4 my-4 font-bold'>{User && User.name}</h1>
-        <table className="w-full text-justify text-sm font-bold text-white ">
+      <h1 className='text-3xl mx-4 my-4 font-bold'>{User}</h1>
+      <h1 className='text-5xl font-bold mx-6 text-white mb-6'>Salary</h1>
+
+        <table className="w-full text-justify text-white ">
           {isLoading && <Loader />}
             <thead >
-              <tr className="font-bold text-3xl text-black">
-                <th className='border-2 rounded-b-none'>Gross Salary</th>
+              <tr className="text-1xl text-black">
+                <th className='border-2 '>Gross Salary</th>
                 <th className='border-2'>Net Salary</th>
               </tr>
             </thead>
@@ -73,7 +84,7 @@ const User = () => {
         <table className="min-w-full text-justify text-sm font-bold text-white px-20">
         {isLoading && <Loader />}
             <thead >
-              <tr className="font-bold text-2xl text-black">
+              <tr className="font-semibold text-1xl text-black">
                 <th className='border-2'>Pag-ibig</th>
                 <th className='border-2'>Philhealth</th>
                 <th className='border-2'>SSS</th>
