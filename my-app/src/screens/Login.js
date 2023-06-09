@@ -48,7 +48,7 @@ function Login() {
       formData.append("password", password);
 
       axios
-        .post(`login`, formData, { headers })
+        .post(`/login`, formData, { headers })
         .then((res) => {
           const data = res.data;
           const token = data.data.token;
@@ -67,6 +67,7 @@ function Login() {
             theme: "dark",
           });
         });
+
         
     }
   };

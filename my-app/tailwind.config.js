@@ -8,6 +8,9 @@ module.exports = {
       backgroundImage: {
         'background': "url('/src/images/background.jpg')"
       },
+      colors:{
+        "blue-green" : "#06BABC"
+      }
       
       
     },

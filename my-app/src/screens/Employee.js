@@ -25,6 +25,7 @@ const Employee = () => {
     refetchIntervalInBackground: true
   });
 
+  
 
   //Handle Delete
   const handleDelete = async (id) => {
@@ -37,10 +38,10 @@ const Employee = () => {
   };
 
   return (
-    <div className="flex h-screen justify-center items-center w-full">
-      <div className="flex flex-col backdrop-blur-sm drop-shadow-2xl shadow-2xl rounded-xl min-h-[80%] w-[80%] mx-10 my-10 border-2 border-dashed">
-      <div className={`${isLoading && "flex flex-col mt-40 items-center justify-center"} py-2 overflow-auto overflow-x-hidden px-10`}>
-          {isLoading ? (<Loader />) : ( <> <table className="min-w-full text-justify text-sm font-bold text-white px-20">
+    <div className="flex max-h-screen justify-center items-center w-full">
+      <div className="flex flex-col backdrop-blur-sm drop-shadow-2xl shadow-2xl rounded-xl max-h-[70%] w-[80%] mx-10 my-10 border-2 border-dashed">
+      <div className={`${isLoading && "flex flex-col mt-40 items-center justify-center"} py-2 overflow-auto  overflow-x-hidden px-10`}>
+          {isLoading ? (<Loader />) : ( <> <table className="min-w-full text-justify text-sm font-bold  text-white px-20">
             <thead >
               <tr className="font-bold">
                 <th>ID</th>

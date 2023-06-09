@@ -4,35 +4,55 @@ import Button from "../components/Button";
 import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import DropDownInput from "../components/DropdownInput"
+import DropDownInputCountry from "../components/DropDownInputCountry"
+
 const AddUser = () => {
   const navigate = useNavigate()
+  
+
   let access_token = sessionStorage.getItem("access_token");
+
   const headers = { Authorization: `Bearer ${access_token}` };
-  const [value, setValue] = useState({
-    name: "",
-    email: "",
-    password: "",
-    contact_number: "",
-    position: "",
-    street: "",
-    city: "",
-    zip_code: "",
-    state: "",
-    country: "",
-    rate:""
-  });
+  const [position, setPosition] = useState("")
+  const [country, setCountry] = useState("")
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [contactNumber, setcontactNumber] = useState("")
+  const [street, setStreet] = useState("")
+  const [city, setCity] = useState("")
+  const [zipCode, setZipCode] = useState("")
+  const [state, setState] = useState("")
+  const [rate, setRate] = useState("")
+
+
   const handleRegister = (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("name", name)
+    formData.append("password", password)
+    formData.append("email", email)
+    formData.append("contact_number", contactNumber)
+    formData.append("rate", rate)
+    formData.append("position", position)
+    formData.append("country", country)
+    formData.append("state", state)
+    formData.append("zip_code", zipCode)
+    formData.append("city", city)
+    
     axios
-      .post(`/register`, value, { headers })
+      .post(`/register`, formData, { headers })
       .then(res => {
         navigate("/AdminDashboard/Employee")
+       
       })
       .catch((err) => console.error(err));
+
+      
   };
   return (
     <div className="flex w-full h-full justify-center items-center ">
-      <div className="flex flex-col backdrop-blur-sm rounded-xl min-h-[50%] drop-shadow-2xl shadow-2xl w-full mx-10 my-4 border-2 border-dashed">
+      <div className="flex flex-col backdrop-blur-sm rounded-xl min-h-[50%] drop-shadow-2xl shadow-2xl w-full mx-10 my-12 border-2 border-dashed">
         <h1 className="font-bold mt-[10px] ml-[10px] text-white">
           Register Employee
         </h1>
@@ -40,25 +60,26 @@ const AddUser = () => {
           <div className="flex flex-col gap-2 flex-wrap">
             <div className="flex mt-5">
               <div className="w-[50%]">
-                <Input placeholder="Name" label="Name" onChange={(e) => setValue({...value, name: e.target.value})} />
+                <Input placeholder="Name" label="Name" value={name} onChange={(e) => setName(e.target.value)} />
               </div>
               <div className="w-[50%]">
-                <Input placeholder="Email" label="Email" onChange={(e) => setValue({...value, email: e.target.value})}/>
+                <Input placeholder="Email" label="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
               </div>
             </div>
             <div className="flex">
               <div className="w-[40%]">
-                <Input placeholder="Password" label="Password" type="password" onChange={(e) => setValue({...value, password: e.target.value})} />
+                <Input placeholder="Password" label="Password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
               </div>
               <div className="w-[30%] ">
-                <Input label="Contact Number" placeholder="Contact Number" onChange={(e) => setValue({...value, contact_number: e.target.value})}/>
+                <Input label="Contact Number" placeholder="Contact Number" value={contactNumber} onChange={(e) => setcontactNumber(e.target.value)}/>
               </div>
               <div className="w-[20%]">
-              <Input label="Position" placeholder="Position" onChange={(e) => setValue({...value, position: e.target.value})}/>
-
+              <DropDownInput 
+              setPosition = {setPosition}
+              />
               </div>
               <div className="w-[10%]">
-              <Input label="Rate" placeholder="Rate" onChange={(e) => setValue({...value, rate  : e.target.value})}/>
+              <Input label="Rate" placeholder="Rate" value={rate} onChange={(e) => setRate(e.target.value)}/>
 
               </div>
             </div>
@@ -67,22 +88,24 @@ const AddUser = () => {
             </h1>
             <div className="flex">
               <div className="w-[25%]">
-                <Input label="Street" placeholder="12-28 St." onChange={(e) => setValue({...value, street: e.target.value})}/>
+                <Input label="Street" placeholder="12-28 St." value={street} onChange={(e) => setStreet(e.target.value)}/>
               </div>
               <div className="w-[50%]">
-                <Input label="City" placeholder="Davao City" onChange={(e) => setValue({...value, city: e.target.value})}/>
+                <Input label="City" placeholder="Davao City" value={city} onChange={(e) => setCity(e.target.value)}/>
               </div>
 
               <div className="w-[25%]">
-                <Input label="Zip Code" placeholder="9000" onChange={(e) => setValue({...value, zip_code: e.target.value})}/>
+                <Input label="Zip Code" placeholder="9000" value={zipCode} onChange={(e) => setZipCode(e.target.value)}/>
               </div>
             </div>
             <div className="flex">
               <div className="w-[50%]">
-                <Input label="State" placeholder="Misamis Oriental" onChange={(e) => setValue({...value, state: e.target.value})}/>
+                <Input label="State" placeholder="Misamis Oriental" value={state} onChange={(e) => setState(e.target.value)}/>
               </div>
               <div className="w-[50%]">
-                <Input label="Country" placeholder="Philippines" onChange={(e) => setValue({...value, country: e.target.value})}/>
+                <DropDownInputCountry 
+                setCountry = {setCountry}
+                />
               </div>
             </div>
           </div>

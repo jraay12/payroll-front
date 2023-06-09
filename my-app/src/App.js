@@ -11,7 +11,7 @@ import SalaryLogs from "./screens/SalaryLogs";
 import UpdateRate from "./screens/UpdateRate";
 import User from "./screens/User";
 import UserDasbroad from "./screens/UserDashboard";
-
+import UserProfile from "./screens/UserProfile";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 function App() {
 
@@ -31,6 +31,7 @@ function App() {
       </Route>
       <Route path="/UserDashboard" element={<UserDasbroad />} >
         <Route path="User/:id" element={<User /> }/>
+        <Route path="Profile/:id" element={<UserProfile />} />
       </Route>
     </Routes>
     </QueryClientProvider>

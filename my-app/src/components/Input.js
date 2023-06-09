@@ -14,7 +14,7 @@ const Input = (props) => {
           required
           placeholder={props.placeholder}
           disabled={props.disabled}
-          className="w-full px-4 h-full"
+          className="w-full px-4 h-full rounded-2xl"
         ></input>
       </div>
     </div>

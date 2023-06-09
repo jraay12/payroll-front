@@ -30,7 +30,7 @@ const UserSlide = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:8000/api/logout", {
+      await fetch("http://192.168.136.115:8000/api/logout", {
         method: "POST",
         
       });
@@ -45,6 +45,11 @@ const UserSlide = () => {
     {
       path: `/UserDashboard/User/${id}`,
       name: "Salary",
+      src: User,
+    },
+    {
+      path: `/UserDashboard/Profile/${id}`,
+      name: "Profile",
       src: User,
     },
    

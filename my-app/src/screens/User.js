@@ -21,7 +21,7 @@ const User = () => {
         }
       }, [])
 
-      const {data: getSalary, isLoading} = useQuery(["id"], async() =>{
+      const {data: getSalary, isLoading, isError} = useQuery(["id"], async() =>{
         const response = await axios.get(`/salary/` + id, {headers})
         const value = Object.values(response.data)
         return value
@@ -39,7 +39,7 @@ const User = () => {
       const {data: User} = useQuery(["name"], async()=>{
         const response = await axios.get(`/getUser` , {headers})
         const value = Object.values(response.data)
-        return value[2].name
+        return value
       },
       {
         refetchInterval: 500,
@@ -48,22 +48,24 @@ const User = () => {
         keepPreviousData:false,
         refetchIntervalInBackground:true
       })
+
+      console.log(User)
       
       
 
       
   return (
-    <div className='flex w-full  min-h-screen bg-background justify-center items-center'>
-      <div className='flex flex-col w-[80%] min-h-[70%] bg-gray-400 rounded-2xl'>
-      <h1 className='text-3xl mx-4 my-4 font-bold'>{User}</h1>
+    <div className='flex w-full min-h-screen bg-background justify-center items-center'>
+      <div className='flex flex-col w-[80%] min-h-[70%] bg-gray-400 rounded-2xl px-20'>
+      <h1 className="text-3xl mx-4 my-4 font-bold">{User && User[2].name}</h1>
+      
+      {isLoading ? <h1 className='flex justify-center text-3xl font-extrabold mt-[15%]'>No Existing Salary</h1> : <div>
       <h1 className='text-5xl font-bold mx-6 text-white mb-6'>Salary</h1>
-
-        <table className="w-full text-justify text-white ">
-          {isLoading && <Loader />}
+        <table className="w-full text-justify text-white">
             <thead >
-              <tr className="text-1xl text-black">
-                <th className='border-2 '>Gross Salary</th>
-                <th className='border-2'>Net Salary</th>
+              <tr className="text-1xl text-black bg-blue-green">
+                <th >Gross Salary</th>
+                <th >Net Salary</th>
               </tr>
             </thead>
             <tbody>
@@ -78,18 +80,17 @@ const User = () => {
                   </tr>
                 )}
             </tbody>
-          </table>
+        </table>
 
         <h1 className='text-5xl font-bold mx-6 my-10 text-red-500 mb-6'>Deduction</h1>
         <table className="min-w-full text-justify text-sm font-bold text-white px-20">
-        {isLoading && <Loader />}
             <thead >
-              <tr className="font-semibold text-1xl text-black">
-                <th className='border-2'>Pag-ibig</th>
-                <th className='border-2'>Philhealth</th>
-                <th className='border-2'>SSS</th>
-                <th className='border-2'>Tax</th>
-                <th className='border-2'>Total Deduction</th>
+              <tr className="font-semibold text-1xl text-black bg-blue-green">
+                <th>Pag-ibig</th>
+                <th>Philhealth</th>
+                <th>SSS</th>
+                <th>Tax</th>
+                <th>Total Deduction</th>
               </tr>
             </thead>
             <tbody>
@@ -108,7 +109,8 @@ const User = () => {
                   </tr>
                 )}
             </tbody>
-          </table>
+        </table></div>}
+        
       </div>
     </div>
   )

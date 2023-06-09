@@ -38,9 +38,9 @@ const navigate = useNavigate()
         <table className="min-w-full text-justify text-sm font-bold text-white px-20">
         {isLoading &&  <Loader />}
             <thead >
-              <tr className="font-bold text-3xl text-black">
-                <th className='border-2'>Gross Salary</th>
-                <th className='border-2'>Net Salary</th>
+              <tr className="font-bold text-3xl text-black bg-blue-green ">
+                <th>Gross Salary</th>
+                <th>Net Salary</th>
               </tr>
             </thead>
             <tbody>
@@ -48,7 +48,7 @@ const navigate = useNavigate()
                  (
                   <tr
                     key={data[0].id}
-                    className="hover:bg-gray-600 border-2 hover:ease-in cursor-pointer rounded-lg bg-gray-400"
+                    className="hover:bg-gray-600  hover:ease-in cursor-pointer rounded-lg bg-gray-400"
                   >
                     <td className="text-lg font-semibold">{data[0].gross_salary}</td>
                     <td className="text-lg font-semibold ">{data[0].net_salary}</td>                    
@@ -62,12 +62,12 @@ const navigate = useNavigate()
         <table className="min-w-full text-justify text-sm font-bold text-white px-20">
         {isLoading && <Loader />}
             <thead >
-              <tr className="font-bold text-2xl text-black">
-                <th className='border-2'>Pag-ibig</th>
-                <th className='border-2'>Philhealth</th>
-                <th className='border-2'>SSS</th>
-                <th className='border-2'>Tax</th>
-                <th className='border-2'>Total Deduction</th>
+              <tr className="font-bold text-2xl text-black bg-blue-green">
+                <th >Pag-ibig</th>
+                <th >Philhealth</th>
+                <th >SSS</th>
+                <th >Tax</th>
+                <th >Total Deduction</th>
               </tr>
             </thead>
             <tbody>
@@ -75,7 +75,7 @@ const navigate = useNavigate()
                  (
                   <tr
                     key={data[1].id}
-                    className="hover:bg-gray-600 hover:ease-in cursor-pointer border-2 rounded-lg bg-gray-400"
+                    className="hover:bg-gray-600 hover:ease-in cursor-pointer  rounded-lg bg-gray-400"
                   >
                     <td className="text-lg font-semibold">{data[1].pagibig}</td>
                     <td className="text-lg font-semibold ">{data[1].philhealth}</td>   
