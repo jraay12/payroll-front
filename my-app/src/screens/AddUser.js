@@ -56,7 +56,7 @@ const AddUser = () => {
         <h1 className="font-bold mt-[10px] ml-[10px] text-white">
           Register Employee
         </h1>
-        <form onSubmit={handleRegister}>
+        <form onSubmit={(e) => handleRegister}>
           <div className="flex flex-col gap-2 flex-wrap">
             <div className="flex mt-5">
               <div className="w-[50%]">
