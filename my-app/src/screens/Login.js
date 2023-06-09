@@ -11,18 +11,16 @@ import axios from "../api/axios";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  let access_token = sessionStorage.getItem("access_token");
-  const headers = {
-    Authorization: `Bearer ${access_token}`,
-    "Content-Type": "application/json",
-  };
+  const [attempt, setAttempt] = useState(1);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [remainingTime, setRemainingTime] = useState(0);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     sessionStorage.clear();
   }, []);
+
 
   const validate = () => {
     let result = true;
@@ -48,37 +46,58 @@ function Login() {
       formData.append("password", password);
 
       axios
-        .post(`/login`, formData, { headers })
+        .post(`/login`, formData)
         .then((res) => {
           const data = res.data;
           const token = data.data.token;
           sessionStorage.setItem("access_token", token);
-          if (data.data.user.role_id == 1){
-            navigate('/AdminDashboard/Employee')
-          }else{
-            const userId = data.data.user.id
-            navigate(`/UserDashboard/User/${userId}`)
+          if (data.data.user.role_id == 1) {
+            navigate("/AdminDashboard/Employee");
+          } else {
+            const userId = data.data.user.id;
+            navigate(`/UserDashboard/User/${userId}`);
           }
         })
         .catch((err) => {
           console.error(err);
+          setAttempt(attempt + 1);
           toast.error("Please enter valid credentials", {
             autoClose: 1000,
             theme: "dark",
           });
-        });
 
-        
+          if (attempt >= 3) {
+            const disableButtonTime = 30000; 
+            setButtonDisabled(true);
+            setRemainingTime(disableButtonTime);
+
+            const timer = setInterval(() => {
+              setRemainingTime((prevTime) => prevTime - 1000);
+            }, 1000);
+
+            setTimeout(() => {
+              clearInterval(timer);
+              setButtonDisabled(false);
+              setAttempt(1);
+              setRemainingTime(0);
+            }, disableButtonTime);
+          }
+        });
     }
+  };
+
+  const formatTime = (time) => {
+    const seconds = Math.ceil(time / 1000);
+    return `${seconds}s`;
   };
 
   return (
     <div className="w-screen h-screen bg-background flex justify-center items-center bg-cover">
       <div className="flex flex-col items-center h-full w-screen justify-center">
         <div className="w-[100px] h-[100px] object-contain mt-2 flex items-center">
-          <img src={Logo} alt="Logo"></img>
+          <img src={Logo} alt="Logo" />
         </div>
-        <div className="h-[360px] max-w-[350px] w-screen bg-blue-950 rounded-md shadow-2xl ">
+        <div className="h-[360px] max-w-[350px] w-screen bg-blue-950 rounded-md shadow-2xl">
           <div className="flex flex-col items-center gap-8">
             <h1 className="font-semibold mt-[20px] text-2xl text-white">
               Sign In
@@ -106,8 +125,12 @@ function Login() {
                 placeholder="Password"
               />
               <div className="h-[40px] bg-blue-500 mx-5 rounded-lg">
-                <Button type="submit" label="Login" onClick={handleSubmit} />
-                <ToastContainer></ToastContainer>
+                <Button
+                  type="submit"
+                  label={buttonDisabled ? formatTime(remainingTime) : "Submit"}
+                  disabled={buttonDisabled}
+                />
+                <ToastContainer />
               </div>
             </div>
           </form>

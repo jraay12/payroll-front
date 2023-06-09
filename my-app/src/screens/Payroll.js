@@ -5,8 +5,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "../api/axios";
 const Payroll = () => {
   const navigate = useNavigate();
+
   const { id } = useParams();
+
   let access_token = sessionStorage.getItem("access_token");
+
   const headers = {
     Authorization: `Bearer ${access_token}`,
     "Content-Type": "application/json",
@@ -22,7 +25,7 @@ const Payroll = () => {
   const handlePayroll = async (e) => {
     e.preventDefault();
     await axios
-      .post(`/payroll/`, values, { headers })
+      .post(`/payroll/`, values)
       .then((res) => {
         console.log(res)
         navigate("/AdminDashboard/Employee");

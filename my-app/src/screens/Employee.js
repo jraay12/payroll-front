@@ -27,15 +27,7 @@ const Employee = () => {
 
   
 
-  //Handle Delete
-  const handleDelete = async (id) => {
-    await axios
-      .delete(`/users/${id}`, { headers })
-      .then((res) => {
-        console.log("Deleted Succesfully")
-      })
-      .catch((err) => console.error(err));
-  };
+ 
 
   return (
     <div className="flex max-h-screen justify-center items-center w-full">
@@ -68,13 +60,6 @@ const Employee = () => {
                     </td>
                     <td className=" py-4  ">
                       <div className="flex gap-2 font-bold">
-                        <div className=" bg-red-800 h-[40px] w-[70px] hover:scale-x-110 rounded-lg ">
-                          <Button
-                            type="submit"
-                            label="Delete"
-                            onClick={() => handleDelete(user.id)}
-                          />
-                        </div>
                         <div className=" text-white hover:scale-x-110 ">
                           <Link
                             className=" bg-blue-800 h-[40px] w-[70px] flex items-center justify-center rounded-lg"
