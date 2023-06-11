@@ -9,10 +9,6 @@ import DropDownInputCountry from "../components/DropDownInputCountry"
 const AddUser = () => {
   const navigate = useNavigate()
   
-
-  let access_token = sessionStorage.getItem("access_token");
-
-  const headers = { Authorization: `Bearer ${access_token}` };
   const [position, setPosition] = useState("")
   const [country, setCountry] = useState("")
   const [name, setName] = useState("")
