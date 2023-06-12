@@ -1,7 +1,6 @@
 import React from "react";
 
-function Dropdown({ month, setMonth}) {
-
+function DropDownInputMonth({ month, setMonth }) {
   const handleOptionChange = (event) => {
     setMonth(event.target.value);
   };
@@ -32,12 +31,10 @@ function Dropdown({ month, setMonth}) {
           <option value="October">October</option>
           <option value="November">November</option>
           <option value="December">December</option>
-
-
         </select>
       </div>
     </div>
   );
 }
 
-export default Dropdown;
+export default DropDownInputMonth;
