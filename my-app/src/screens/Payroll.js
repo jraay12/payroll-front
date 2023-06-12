@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { useNavigate, useParams } from "react-router-dom";
+import DropDownInputMonth from "../components/DropDownInputMonth";
 import axios from "../api/axios";
 const Payroll = () => {
   const navigate = useNavigate();
+  const [month, setMonth] = useState("")
+  const [workingDays, setWorkingDays] = useState("")
+  const [cashAdvance, setCashAdvance] = useState("")
+  const [totalHoursOvertime, setTotalHoursOvertime] = useState("")
 
   const { id } = useParams();
+  
 
   let access_token = sessionStorage.getItem("access_token");
 
@@ -14,19 +20,19 @@ const Payroll = () => {
     Authorization: `Bearer ${access_token}`,
     "Content-Type": "application/json",
   };
-
-  const [values, setValues] = useState({
-    user_id: id,
-    month: "",
-    working_days: "",
-    cash_advance: "",
-    total_hours_overtime: "",
-  });
-
+    
   const handlePayroll = async (e) => {
+    
     e.preventDefault();
+    const formData = new FormData()
+    formData.append("user_id", id)
+    formData.append("month", month)
+    formData.append("working_days", workingDays)
+    formData.append("cash_advance", cashAdvance)
+    formData.append("total_hours_overtime", totalHoursOvertime)
+
     await axios
-      .post(`/payroll/`, values, {headers})
+      .post(`/payroll/`, formData, {headers})
       .then((res) => {
         console.log(res)
         navigate("/AdminDashboard/Employee");
@@ -39,25 +45,26 @@ const Payroll = () => {
       <div className="backdrop-blur-sm border-2 border-dashed rounded-3xl border-black min-h-[60%] w-96 mx-10">
         <form onSubmit={handlePayroll}>
           <div className="border-none outline-none">
-            <Input
-              label="Month"
-              type="month"
-              onChange={(e) => setValues({ ...values, month: e.target.value })}
+            <DropDownInputMonth 
+            setMonth={setMonth}
+            month={month}
             />
           </div>
           <div className="border-none outline-none">
             <Input
               label="Cash Advance"
+              value={cashAdvance}
               type="number"
-              onChange={(e) => setValues({ ...values, cash_advance: e.target.value })}
+              onChange={(e) => setCashAdvance(e.target.value)}
             />
           </div>
           <div className="border-none outline-none">
             <Input
               label="Working Days"
               type="number"
+              value={workingDays}
               onChange={(e) =>
-                setValues({ ...values, working_days: e.target.value })
+                setWorkingDays(e.target.value)
               }
             />
           </div>
@@ -65,11 +72,9 @@ const Payroll = () => {
             <Input
               label="Total hours Overtime"
               type="number"
+              value={totalHoursOvertime}
               onChange={(e) =>
-                setValues({
-                  ...values,
-                  total_hours_overtime: e.target.value,
-                })
+                setTotalHoursOvertime(e.target.value)
               }
             />
           </div>

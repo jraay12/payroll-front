@@ -1,5 +1,12 @@
 import React from "react";
-import { Page, Text, Document, StyleSheet, View } from "@react-pdf/renderer";
+import {
+  Page,
+  Text,
+  Document,
+  StyleSheet,
+  View,
+  Line,
+} from "@react-pdf/renderer";
 import { useQuery } from "@tanstack/react-query";
 import axios from "../api/axios";
 import Loader from "../components/Loader";
@@ -15,7 +22,8 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 24,
+    fontSize: 36,
+    fontWeight: "bold",
     textAlign: "center",
   },
   text: {
@@ -32,12 +40,18 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 24,
     marginBottom: 20,
-    marginTop: 20,
+    marginTop: 30,
     textAlign: "center",
     color: "grey",
   },
   page: {
     backgroundColor: "#F8E8CE",
+  },
+  line: {
+    marginTop: 10,
+    marginBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#000000",
   },
 });
 
@@ -56,9 +70,11 @@ const PDFContent = ({ data, userDetails, userPayroll }) => {
   return (
     <Document>
       <Page style={styles.body} size="A4">
+        <Text style={styles.title}>CODEWAVE</Text>
         <Text style={styles.header} fixed>
-          Salary Slip For The month of April
+          Salary Slip For The month of {userPayroll[0]?.month}
         </Text>
+        <Line style={styles.line} />
         <Text style={styles.text}>Employee ID: {userDetails[0]?.id}</Text>
         <Text style={styles.text}>Employee Name: {userDetails[0]?.name}</Text>
         <Text style={styles.text}>Position: {userDetails[0]?.position}</Text>
@@ -83,12 +99,10 @@ const PDFContent = ({ data, userDetails, userPayroll }) => {
         <Text style={styles.header} fixed>
           Deduction
         </Text>
+        <Line style={styles.line} />
         <View style={styles.columnCotainer}>
           <Text style={styles.text}>
             PhilHealth: {data[1]?.philhealth?.toLocaleString()}
-          </Text>
-          <Text style={styles.text}>
-            Pag-ibig: {data[1]?.pagibig?.toLocaleString()}
           </Text>
           <Text style={styles.text}>Tax: {data[1]?.tax?.toLocaleString()}</Text>
         </View>
@@ -97,9 +111,12 @@ const PDFContent = ({ data, userDetails, userPayroll }) => {
             Cash Advance: {data[1]?.cash_advance?.toLocaleString()}
           </Text>
           <Text style={styles.text}>
-            Total Deduction: {data[1]?.total_deduction?.toLocaleString()}
+            Pag-ibig: {data[1]?.pagibig?.toLocaleString()}
           </Text>
         </View>
+        <Text style={styles.text}>
+          Total Deduction: {data[1]?.total_deduction?.toLocaleString()}
+        </Text>
       </Page>
     </Document>
   );
@@ -117,7 +134,7 @@ const SalaryLogs = (props) => {
   const { data, isLoading, refetch } = useQuery(
     ["id"],
     async () => {
-      const response = await axios.get(`/salary/` + id);
+      const response = await axios.get(`/salary/` + id, { headers });
       const value = Object.values(response.data);
       return value;
     },
