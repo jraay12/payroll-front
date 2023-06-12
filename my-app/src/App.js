@@ -34,6 +34,7 @@ function App() {
         <Route path="Profile/:id" element={<UserProfile />} />
       </Route>
     </Routes>
+
     </QueryClientProvider>
   );
 }
