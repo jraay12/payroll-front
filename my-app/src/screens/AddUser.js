@@ -20,8 +20,14 @@ const AddUser = () => {
   const [zipCode, setZipCode] = useState("")
   const [state, setState] = useState("")
   const [rate, setRate] = useState("")
+  const [photo, setPhotos] = useState("")
 
+  let access_token = sessionStorage.getItem("access_token");
+  const headers = {
+    Authorization: `Bearer ${access_token}`,
+    "Content-Type": "multipart/form-data",
 
+  };
   const handleRegister = (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -36,18 +42,16 @@ const AddUser = () => {
     formData.append("zip_code", zipCode)
     formData.append("city", city)
     formData.append("street", street)
+    formData.append("photo", photo)
     
     
     axios
-      .post(`/register`, formData)
+      .post('/register', formData, {headers})
       .then(res => {
         navigate("/AdminDashboard/Employee")
        
       })
       .catch((err) => console.error(err));
-
-      console.log(formData)
-
       
   };
   return (
@@ -56,14 +60,17 @@ const AddUser = () => {
         <h1 className="font-bold mt-[10px] ml-[10px] text-white">
           Register Employee
         </h1>
-        <form onSubmit={(e) => handleRegister(e)}>
+        <form onSubmit={(e) => handleRegister(e)} encType='multipart/form-data'>
           <div className="flex flex-col gap-2 flex-wrap">
             <div className="flex mt-5">
-              <div className="w-[50%]">
+              <div className="w-[40%]">
                 <Input placeholder="Name" label="Name" id="name" value={name} onChange={(e) => setName(e.target.value)} />
               </div>
               <div className="w-[50%]">
                 <Input placeholder="Email" label="Email" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+              </div>
+              <div className="w-[10%]">
+                <Input placeholder="Photo" label="Photo" id="photo"  type="file" onChange={(e) => setPhotos(e.target.files[0])}/>
               </div>
             </div>
             <div className="flex">
