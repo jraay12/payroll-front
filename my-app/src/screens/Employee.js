@@ -27,7 +27,7 @@ const Employee = () => {
 
   return (
     <div className="flex max-h-screen justify-center items-center w-full">
-      <div className="flex flex-col backdrop-blur-sm drop-shadow-2xl shadow-2xl rounded-xl max-h-[70%] w-[80%] mx-10 my-10 border-2 border-dashed">
+      <div className="flex flex-col backdrop-blur-sm drop-shadow-2xl shadow-2xl rounded-xl max-h-[70%] min-h-[70%] w-[80%] mx-10 my-10 border-2 border-dashed">
         <div
           className={`${
             isLoading && "flex flex-col mt-40 items-center justify-center"
@@ -77,7 +77,7 @@ const Employee = () => {
                           </div>
                           <div className="text-white hover:scale-x-110 transition ease-in-out delay-150">
                             <Link
-                              className="bg-yellow-600 h-[40px] w-[100px] flex items-center justify-center rounded-lg"
+                              className="bg-red-600 h-[40px] w-[100px] flex items-center justify-center rounded-lg"
                               to={`/AdminDashboard/UpdateRate/${user.id}`}
                             >
                               Update Rate

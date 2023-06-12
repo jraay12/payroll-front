@@ -16,7 +16,7 @@ const UserDashbroad = () => {
 
       
   return (
-    <div className='flex min-w-max min-h-screen bg-background'>
+    <div className='flex min-w-max max-h-screen min-h-screen bg-background'>
         <UserSlides />
         <Outlet />
     </div>

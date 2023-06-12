@@ -67,7 +67,7 @@ const PayrollLog = () => {
                 <tbody>
                   {Array.isArray(Payroll) &&
                     Payroll.filter(
-                      (item) => item.payroll.month === historyMonth || historyMonth === "All"
+                      (item) => item.payroll.month === historyMonth || historyMonth === "" 
                     ).map((item) => (
                       <tr
                         key={item.payroll.id}

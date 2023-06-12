@@ -44,7 +44,7 @@ const UserSlide = () => {
   const menuItem = [
     {
       path: `/UserDashboard/User/${id}`,
-      name: "Salary",
+      name: "Playslip",
       src: User,
     },
     {
