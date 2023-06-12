@@ -24,7 +24,6 @@ const Employee = () => {
     }
   );
 
-  console.log(UserData);
 
   return (
     <div className="flex max-h-screen justify-center items-center w-full">

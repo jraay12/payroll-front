@@ -30,7 +30,6 @@ const PayrollLog = () => {
       refetchIntervalInBackground: true,
     }
   );
-  console.log(historyMonth);
   return (
     <div className="flex justify-center item-center w-full h-screen">
       <div className="flex flex-col backdrop-blur-sm rounded-xl min-h-[50%] drop-shadow-2xl shadow-2xl w-full mx-10 my-10 border-2 border-dashed">

@@ -122,7 +122,7 @@ const PDFContent = ({ data, userDetails, userPayroll }) => {
   );
 };
 
-const SalaryLogs = (props) => {
+const SalaryLogs = () => {
   const access_token = sessionStorage.getItem("access_token");
   const headers = {
     Authorization: `Bearer ${access_token}`,
@@ -159,7 +159,6 @@ const SalaryLogs = (props) => {
     return response?.data;
   });
 
-  console.log(Payrolls);
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div className="min-h-[80%] min-w-[80%] backdrop-blur-sm rounded-3xl flex flex-col justify-start ">
