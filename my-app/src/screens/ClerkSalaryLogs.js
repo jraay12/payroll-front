@@ -16,6 +16,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import PdfFile from "../components/PdfFIle";
 
 
+// export const PDFContent = ({ data, userDetails, userPayroll }) => {
 
 //   const styles = StyleSheet.create({
 //     body: {
@@ -125,7 +126,7 @@ import PdfFile from "../components/PdfFIle";
 //   );
 // };
 
-const SalaryLogs = () => {
+const ClerkSalaryLogs = () => {
   const access_token = sessionStorage.getItem("access_token");
   const headers = {
     Authorization: `Bearer ${access_token}`,
@@ -134,7 +135,7 @@ const SalaryLogs = () => {
 
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data, isLoading } = useQuery(
+  const { data, isLoading, refetch } = useQuery(
     ["id"],
     async () => {
       const response = await axios.get(`/salary/` + id, { headers });
@@ -173,7 +174,7 @@ const SalaryLogs = () => {
     return null;
   }
 
-  console.log(data)
+  console.log(Payrolls)
   
   return (
     <div className="flex w-full min-h-screen max-h-screen justify-center items-center">
@@ -271,7 +272,7 @@ const SalaryLogs = () => {
                  <div className="bg-blue-600 w-20 h-10 rounded-lg">
                  <Button 
                   label = "Close"
-                  onClick = {() => navigate("/AdminDashboard/PayrollLog")}
+                  onClick = {() => navigate("/ClerkDashboard/PayrollLog")}
                   />
                  </div>
                   <PDFDownloadLink
@@ -310,4 +311,4 @@ const SalaryLogs = () => {
   );
 };
 
-export default SalaryLogs;
+export default ClerkSalaryLogs;

@@ -23,7 +23,7 @@ const User = () => {
     }
   }, []);
 
-  const { data, isLoading, isError } = useQuery(
+  const { data, isLoading } = useQuery(
     ["id"],
     async () => {
       const response = await axios.get(`/salary/` + id, { headers });
@@ -31,26 +31,33 @@ const User = () => {
       return value;
     },
     {
-      refetchInterval: 100,
-      staleTime: 500,
-      cacheTime: 100,
-      refetchIntervalInBackground: true,
-      refetchOnMount: true,
-      refetchOnWindowFocus: true,
+      staleTime: Infinity,
     }
   );
 
-  const { data: getUser } = useQuery(["name"], async () => {
-    const response = await axios.get(`/getUser`, { headers });
-    const value = Object.values(response?.data);
-    const filterData = value?.filter((item) => item.id == id);
-    return filterData;
-  });
+  const { data: getUser } = useQuery(
+    ["name"],
+    async () => {
+      const response = await axios.get(`/getUser`, { headers });
+      const value = Object.values(response?.data);
+      const filterData = value?.filter((item) => item.id == id);
+      return filterData;
+    },
+    {
+      staleTime: Infinity,
+    }
+  );
 
-  const { data: Payrolls } = useQuery(["payroll"], async () => {
-    const response = await axios.get(`/payroll/` + id, { headers });
-    return response?.data;
-  });
+  const { data: Payrolls } = useQuery(
+    ["payroll"],
+    async () => {
+      const response = await axios.get(`/payroll/` + id, { headers });
+      return response?.data;
+    },
+    {
+      staleTime: Infinity,
+    }
+  );
 
   if (
     !Array.isArray(data) ||
@@ -62,11 +69,13 @@ const User = () => {
   ) {
     return null;
   }
-  
+
   return (
     <div className="flex w-full min-h-screen justify-center items-center">
       <div className="flex flex-col w-[80%] max-h-[80%]">
-        {isLoading ? <Loader /> : (
+        {isLoading ? (
+          <Loader />
+        ) : (
           <div className="container  mx-auto overflow-auto p-4 rounded-3xl bg-white">
             <div className="border border-gray-400 p-4">
               <h1 className="text-xl font-bold mb-4">CODEWAVE</h1>
@@ -80,10 +89,10 @@ const User = () => {
                 <p className="w-1/2 font-bold">Earnings</p>
                 <p className="w-1/4 text-right font-bold">Amount (P)</p>
               </div>
-              <div className="flex justify-between mb-2">
+              {/* <div className="flex justify-between mb-2">
                 <p className="w-1/2">Rate</p>
                 <p className="w-1/4 text-right">{data[0].rate}</p>
-              </div>
+              </div> */}
               <div className="flex justify-between mb-2">
                 <p className="w-1/2">Total Hours Overtime</p>
                 <p className="w-1/4 text-right">
@@ -108,43 +117,43 @@ const User = () => {
               <div className="flex justify-between mb-2">
                 <p className="w-1/2">Tax</p>
                 <p className="w-1/4 text-right">
-                  {data[1].tax.toLocaleString()}
+                  {data[1]?.tax?.toLocaleString()}
                 </p>
               </div>
               <div className="flex justify-between mb-2">
                 <p className="w-1/2">Pag-Ibig</p>
                 <p className="w-1/4 text-right">
-                  {data[1].pagibig.toLocaleString()}
+                  {data[1]?.pagibig?.toLocaleString()}
                 </p>
               </div>
               <div className="flex justify-between mb-2">
                 <p className="w-1/2">PhilHealth</p>
                 <p className="w-1/4 text-right">
-                  {data[1].philhealth.toLocaleString()}
+                  {data[1]?.philhealth?.toLocaleString()}
                 </p>
               </div>
               <div className="flex justify-between mb-2">
                 <p className="w-1/2">Cash Advance</p>
                 <p className="w-1/4 text-right">
-                  {data[1].cash_advance.toLocaleString()}
+                  {data[1]?.cash_advance?.toLocaleString()}
                 </p>
               </div>
               <div className="flex justify-between mb-2">
                 <p className="w-1/2">SSS</p>
                 <p className="w-1/4 text-right">
-                  {data[1].sss.toLocaleString()}
+                  {data[1]?.sss?.toLocaleString()}
                 </p>
               </div>
               <div className="flex justify-between border-t border-gray-400 pt-2">
                 <p className="w-1/2">Total Deductions:</p>
                 <p className="w-1/4 text-right">
-                  {data[1].total_deduction.toLocaleString()}
+                  {data[1]?.total_deduction?.toLocaleString()}
                 </p>
               </div>
               <div className="flex justify-between mt-4">
                 <p className="w-1/2">Net Pay:</p>
                 <p className="w-1/2 text-right">
-                  {data[0].net_salary.toLocaleString()}
+                  {data[0]?.net_salary?.toLocaleString()}
                 </p>
               </div>
               <div className="border-t border-gray-400 pt-4 mt-4 flex">
@@ -179,7 +188,6 @@ const User = () => {
         )}
       </div>
     </div>
-
   );
 };
 

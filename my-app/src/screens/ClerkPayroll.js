@@ -4,8 +4,9 @@ import Button from "../components/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import DropDownInputMonth from "../components/DropDownInputMonth";
 import { toast, ToastContainer } from "react-toastify";
+
 import axios from "../api/axios";
-const Payroll = () => {
+const ClerkPayroll = () => {
   const navigate = useNavigate();
   const [month, setMonth] = useState("");
   const [workingDays, setWorkingDays] = useState("");
@@ -35,7 +36,7 @@ const Payroll = () => {
       .then((res) => {
         toast.success("Succesfully Added", { theme: "dark" });
         setTimeout(() => {
-          navigate("/AdminDashboard/Employee");
+          navigate("/ClerkDashboard/Employee");
         }, 2000);
       })
       .catch((err) => console.error(err));
@@ -84,4 +85,4 @@ const Payroll = () => {
   );
 };
 
-export default Payroll;
+export default ClerkPayroll;

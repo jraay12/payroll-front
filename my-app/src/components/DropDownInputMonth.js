@@ -10,7 +10,7 @@ function DropDownInputMonth({ month, setMonth }) {
       <label className="font-bold  text-lg ml-[20px]">Month</label>
       <div
         htmlFor="options"
-        className="mx-5 rounded-lg h-[40px] flex items-center "
+        className="mx-2 rounded-lg h-[40px] flex items-center "
       >
         <select
           id="options"

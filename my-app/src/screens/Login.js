@@ -50,12 +50,16 @@ function Login() {
         .then((res) => {
           const data = res.data;
           const token = data.data.token;
+          console.log(data)
           sessionStorage.setItem("access_token", token);
+          const userId = data.data.user.id
+
           if (data.data.user.role_id == 1) {
             navigate("/AdminDashboard/Employee");
-          } else {
-            const userId = data.data.user.id;
-            navigate(`/UserDashboard/User/${userId}`);
+          } else if (data.data.user.role_id == 3){
+            navigate(`/ClerkDashboard/Employee`)
+          }else{
+            navigate(`/UserDashboard/User/${userId}`)
           }
         })
         .catch((err) => {
@@ -107,7 +111,7 @@ function Login() {
             </p>
           </div>
           <form onSubmit={handleSubmit} method="POST">
-            <div className="div flex flex-col gap-6 mt-[20px]">
+            <div className="div flex flex-col gap-6 mx-4 mt-[20px] ">
               <Input
                 type="email"
                 name="email"
@@ -124,7 +128,7 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
               />
-              <div className="h-[40px] bg-blue-500 mx-5 rounded-lg">
+              <div className={`h-[40px] bg-blue-500 mx-2  rounded-full ${buttonDisabled && 'bg-blue-300'} `}>
                 <Button
                   type="submit"
                   label={buttonDisabled ? formatTime(remainingTime) : "Submit"}

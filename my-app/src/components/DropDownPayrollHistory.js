@@ -19,7 +19,7 @@ function DropDownPayrollHistory({ historyMonth, setHistoryMonth}) {
           onChange={handleOptionChange}
           className="w-full h-full rounded-2xl"
         >
-          <option value=""></option>
+          <option value="">All</option>
 \          <option value="January">January</option>
           <option value="February">February</option>
           <option value="March">March</option>

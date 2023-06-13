@@ -7,23 +7,16 @@ import {
   View,
   Line,
 } from "@react-pdf/renderer";
-import { useQuery } from "@tanstack/react-query";
-import axios from "../api/axios";
-import Loader from "../components/Loader";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import Button from "../components/Button";
-import { useParams, useNavigate } from "react-router-dom";
 
 
 const PdfFile = ({ data, userDetails, userPayroll }) => {
-
   const styles = StyleSheet.create({
     body: {
       paddingTop: 35,
       paddingBottom: 65,
       paddingHorizontal: 35,
     },
-  
+
     title: {
       fontSize: 36,
       fontWeight: "bold",
@@ -57,7 +50,6 @@ const PdfFile = ({ data, userDetails, userPayroll }) => {
       borderBottomColor: "#000000",
     },
   });
-  
 
   if (
     !Array.isArray(data) ||
@@ -103,20 +95,16 @@ const PdfFile = ({ data, userDetails, userPayroll }) => {
           Deduction
         </Text>
         <Line style={styles.line} />
-        <View style={styles.columnCotainer}>
-          <Text style={styles.text}>
-            PhilHealth: {data[1]?.philhealth?.toLocaleString()}
-          </Text>
-          <Text style={styles.text}>Tax: {data[1]?.tax?.toLocaleString()}</Text>
-        </View>
-        <View style={styles.columnCotainer}>
-          <Text style={styles.text}>
-            Cash Advance: {data[1]?.cash_advance?.toLocaleString()}
-          </Text>
-          <Text style={styles.text}>
-            Pag-ibig: {data[1]?.pagibig?.toLocaleString()}
-          </Text>
-        </View>
+        <Text style={styles.text}>
+          PhilHealth: {data[1]?.philhealth?.toLocaleString()}
+        </Text>
+        <Text style={styles.text}>
+          Cash Advance: {data[1]?.cash_advance?.toLocaleString()}
+        </Text>
+        <Text style={styles.text}>
+          Pag-ibig: {data[1]?.pagibig?.toLocaleString()}
+        </Text>
+        <Text style={styles.text}>Tax: {data[1]?.tax?.toLocaleString()}</Text>
         <Text style={styles.text}>
           Total Deduction: {data[1]?.total_deduction?.toLocaleString()}
         </Text>
@@ -125,4 +113,4 @@ const PdfFile = ({ data, userDetails, userPayroll }) => {
   );
 };
 
-export default PdfFile
+export default PdfFile;

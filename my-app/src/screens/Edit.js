@@ -37,7 +37,6 @@ const Edit = () => {
     axios.get(`/getUser`, {headers}).then(res => {
       const value = Object.values(res.data.data)
       const filterData = value.filter((item) => item.id == id)
-      console.log(filterData)
       setValues({...values, name: filterData[0].name, position: filterData[0].position, contact_number: filterData[0].contact_number})
     }).catch(err => console.error(err))
 

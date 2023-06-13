@@ -4,19 +4,19 @@ import axios from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../components/Loader";
 
-const Employee = () => {
+const ClerkEmployee = () => {
   const access_token = sessionStorage.getItem("access_token");
   const headers = {
     Authorization: `Bearer ${access_token}`,
     "Content-Type": "application/json",
   };
 
-  const { data: UserData, isLoading } = useQuery(
+  const { data: UserData, isLoading , isError} = useQuery(
     ["name"],
     async () => {
       const response = await axios.get(`/getUser`, { headers });
-
-      return response.data.data.filter((item) => item.role_id === 2 || item.role_id === 3);
+      const value = response?.data?.data?.filter((item) => item.role_id === 2 || item.role_id === 3);
+      return value
     },
     {
       refetchInterval: 500,
@@ -24,7 +24,12 @@ const Employee = () => {
     }
   );
 
+  if(isError){
+    return <h1>Error</h1>
+  }
+
   console.log(UserData)
+
 
   return (
     <div className="flex max-h-screen justify-center items-center w-full">
@@ -60,18 +65,10 @@ const Employee = () => {
                       <td className="text-sm font-semibold">{user.position}</td>
                       <td className="py-4">
                         <div className="flex gap-2 font-bold">
-                          <div className="text-white hover:scale-x-110">
-                            <Link
-                              className="bg-blue-800 h-[40px] w-[70px] flex items-center justify-center rounded-lg"
-                              to={`/AdminDashboard/Edit/${user.id}`}
-                            >
-                              Edit
-                            </Link>
-                          </div>
                           <div className="text-white hover:scale-x-110 transition ease-in-out delay-150">
                             <Link
                               className="bg-yellow-600 h-[40px] w-[70px] flex items-center justify-center rounded-lg"
-                              to={`/AdminDashboard/Payroll/${user.id}`}
+                              to={`/ClerkDashboard/Payroll/${user.id}`}
                             >
                               Payroll
                             </Link>
@@ -79,7 +76,7 @@ const Employee = () => {
                           <div className="text-white hover:scale-x-110 transition ease-in-out delay-150">
                             <Link
                               className="bg-red-600 h-[40px] w-[100px] flex items-center justify-center rounded-lg"
-                              to={`/AdminDashboard/UpdateRate/${user.id}`}
+                              to={`/ClerkDashboard/UpdateRate/${user.id}`}
                             >
                               Update Rate
                             </Link>
@@ -97,4 +94,4 @@ const Employee = () => {
   );
 };
 
-export default Employee;
+export default ClerkEmployee;

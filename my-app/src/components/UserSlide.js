@@ -10,6 +10,7 @@ const UserSlide = () => {
   const navigate = useNavigate();
   const sidebarRef = useRef(null);
   const {id} = useParams()
+  
   useEffect(() => {
     const handleResize = () => {
       const screenWidth = window.innerWidth;
@@ -44,7 +45,7 @@ const UserSlide = () => {
   const menuItem = [
     {
       path: `/UserDashboard/User/${id}`,
-      name: "Playslip",
+      name: "Payslip",
       src: User,
     },
     {
@@ -52,6 +53,12 @@ const UserSlide = () => {
       name: "Profile",
       src: User,
     },
+    {
+      path: `/UserDashboard/UserPayrollLogs/${id}`,
+      name: "Payroll Logs",
+      src: User,
+    },
+
    
   ];
   return (

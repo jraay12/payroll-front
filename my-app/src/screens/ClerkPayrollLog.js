@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import DropDownPayrollHistory from "../components/DropDownPayrollHistory";
 
-const PayrollLog = () => {
+const ClerkPayrollLog = () => {
   let access_token = sessionStorage.getItem("access_token");
   const [openModal, setOpenModal] = useState(() => {
     return false;
@@ -18,7 +18,7 @@ const PayrollLog = () => {
     "Content-Type": "application/json",
   };
 
-  const { data: Payroll, isLoading } = useQuery(
+  const { data:Payroll, isLoading } = useQuery(
     ["rate"],
     async () => {
       const response = await axios.get(`/payroll/`, { headers });
@@ -31,7 +31,11 @@ const PayrollLog = () => {
     }
   );
 
-  
+  if (!Array.isArray(Payroll) || Payroll.length === 0) {
+    return null;
+  }
+
+  console.log(Payroll)
   return (
     <div className="flex justify-center item-center w-full h-screen">
       <div className="flex flex-col backdrop-blur-sm rounded-xl min-h-[50%] drop-shadow-2xl shadow-2xl w-full mx-10 my-10 border-2 border-dashed">
@@ -72,23 +76,23 @@ const PayrollLog = () => {
                       (item) => item.payroll.month === historyMonth || historyMonth === "" 
                     ).map((item) => (
                       <tr
-                        key={item.payroll.id}
+                        key={item?.payroll?.id}
                         className="hover:bg-gray-600 hover:ease-in cursor-pointer transition ease-in duration-75 font-semibold"
                       >
                         <td className="font-semibold">{item.user}</td>
                         <td className="font-semibold text-sm">{item.rate}</td>
                         <td className="font-semibold text-sm">
-                          {item.payroll.month}
+                          {item?.payroll?.month}
                         </td>
                         <td className="text-sm font-bold pl-2">
-                          {item.payroll.working_days}
+                          {item?.payroll?.working_days}
                         </td>
                         <td className="font-semibold text-sm">
-                          {item.payroll.total_hours_overtime}
+                          {item?.payroll?.total_hours_overtime}
                         </td>
                         <td className="text-sm font-sbold pl-2 hover:text-red-500">
                           <Link
-                            to={`/AdminDashboard/SalaryLogs/${item.payroll.user_id}`}
+                            to={`/ClerkDashboard/SalaryLogs/${item?.payroll?.user_id}`}
                           >
                             View
                           </Link>
@@ -110,4 +114,4 @@ const PayrollLog = () => {
   );
 };
 
-export default PayrollLog;
+export default ClerkPayrollLog;
