@@ -4,8 +4,9 @@ import Button from "../components/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import DropDownInputMonth from "../components/DropDownInputMonth";
 import { toast, ToastContainer } from "react-toastify";
+
 import axios from "../api/axios";
-const Payroll = () => {
+const ClerkPayroll = () => {
   const navigate = useNavigate();
   const [month, setMonth] = useState("");
   const [workingDays, setWorkingDays] = useState("");
@@ -35,7 +36,7 @@ const Payroll = () => {
       .then((res) => {
         toast.success("Succesfully Added", { theme: "dark" });
         setTimeout(() => {
-          navigate("/AdminDashboard/Employee");
+          navigate("/ClerkDashboard/Employee");
         }, 2000);
       })
       .catch((err) => console.error(err));
@@ -43,7 +44,7 @@ const Payroll = () => {
 
   return (
     <div className="flex justify-center items-center h-screen w-full ">
-      <div className="backdrop-blur-sm border-2 border-dashed rounded-3xl shadow-black py-10 shadow-2xl drop-shadow-2xl border-black min-h-[60%] w-96 mx-10">
+      <div className="backdrop-blur-sm border-2 border-dashed rounded-3xl border-black min-h-[60%] w-96 mx-10">
         <form onSubmit={handlePayroll}>
           <div className="mx-2">
             <div className="border-none outline-none">
@@ -74,7 +75,7 @@ const Payroll = () => {
               />
             </div>
           </div>
-          <div className="mt-10 text-xl hover:opacity-60 bg-green-500 mx-10 h-14 rounded-lg mb-2">
+          <div className="mt-10 text-xl hover:opacity-60 bg-green-500 mx-10 h-20 rounded-lg mb-2">
             <Button type="submit" label="Generate Payroll" />
           </div>
         </form>
@@ -84,4 +85,4 @@ const Payroll = () => {
   );
 };
 
-export default Payroll;
+export default ClerkPayroll;

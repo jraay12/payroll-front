@@ -6,8 +6,12 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'background': "url('/src/images/background.jpg')"
+        'background': "url('/src/images/background.jpg')",
+        'sideBackground': "url('/src/images/red.jpg')",
       },
+      colors:{
+        "blue-green" : "#06BABC"
+      }
       
       
     },

@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import Side from "../components/Side";
-const PartialDashboard = () => {
+import SideClerk from "../components/SideClerk";
+const ClerkDasboard = () => {
   const navigate = useNavigate();
   useEffect(() => {
     let access_token = sessionStorage.getItem("access_token");
@@ -12,10 +12,10 @@ const PartialDashboard = () => {
 
   return (
     <div className="flex min-h-screen bg-background bg-cover min-w-max ">
-      <Side/>
+      <SideClerk />
       <Outlet/>
     </div>
   );
 };
 
-export default PartialDashboard;
+export default ClerkDasboard;

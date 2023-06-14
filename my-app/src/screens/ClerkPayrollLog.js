@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import DropDownPayrollHistory from "../components/DropDownPayrollHistory";
 
-const PayrollLog = () => {
+const ClerkPayrollLog = () => {
   let access_token = sessionStorage.getItem("access_token");
   const [openModal, setOpenModal] = useState(() => {
     return false;
@@ -31,7 +31,7 @@ const PayrollLog = () => {
     }
   );
 
-  if(!Array.isArray(Payroll) || Payroll.length === 0){
+  if(!Array.isArray(Payroll) || Payroll.length === 0) {
     return null
   }
   return (
@@ -90,7 +90,7 @@ const PayrollLog = () => {
                         </td>
                         <td className="text-sm font-sbold pl-2 hover:text-red-500">
                           <Link
-                            to={`/AdminDashboard/SalaryLogs/${item?.payroll?.user_id}/${item?.payroll?.month}/${item?.payroll?.id}`}
+                            to={`/ClerkDashboard/SalaryLogs/${item?.payroll?.user_id}/${item?.payroll?.month}/${item?.payroll?.id}`}
                           >
                             View
                           </Link>
@@ -112,4 +112,4 @@ const PayrollLog = () => {
   );
 };
 
-export default PayrollLog;
+export default ClerkPayrollLog;
