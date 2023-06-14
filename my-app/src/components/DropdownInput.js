@@ -19,7 +19,7 @@ function Dropdown({ position, setPosition}) {
           className="w-full h-full rounded-2xl"
         >
           <option value=""></option>
-          <option value="Front End">Front End</option>
+          <option value="Clerk">Clerk</option>
           <option value="Back End">Back End</option>
           <option value="Dev Ops">Dev Ops</option>
           <option value="QA Tester">QA Tester</option>

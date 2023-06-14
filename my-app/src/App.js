@@ -33,14 +33,14 @@ function App() {
           <Route path="PayrollLog" element={<PayrollLog />} />
           <Route path="Edit/:id" element={<Edit />} />
           <Route path="UpdateRate/:id" element={<UpdateRate />} />
-          <Route path="SalaryLogs/:id" element={<SalaryLogs />} />
+          <Route path="SalaryLogs/:userId/:month/:id" element={<SalaryLogs />} />
         </Route>
         <Route path="/ClerkDashboard" element={<ClerkDashboard />}>
           <Route path="Employee" element={<ClerkEmployee />} />
           <Route path="Payroll/:id" element={<ClerkPayroll />} />
           <Route path="PayrollLog" element={<ClerkPayrollLog />} />
           <Route path="UpdateRate/:id" element={<ClerkUpdateRate />} />
-          <Route path="SalaryLogs/:id" element={<ClerkSalaryLogs />} />
+          <Route path="SalaryLogs/:userId/:month/:id" element={<ClerkSalaryLogs />} />
         </Route>
         <Route path="/UserDashboard" element={<UserDasbroad />}>
           <Route path="User/:id" element={<User />} />

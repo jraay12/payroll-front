@@ -9,7 +9,7 @@ import {
 } from "@react-pdf/renderer";
 
 
-const PdfFile = ({ data, userDetails, userPayroll }) => {
+const PdfFile = ({ salary, payroll, userDetails, userPayroll }) => {
   const styles = StyleSheet.create({
     body: {
       paddingTop: 35,
@@ -52,22 +52,25 @@ const PdfFile = ({ data, userDetails, userPayroll }) => {
   });
 
   if (
-    !Array.isArray(data) ||
-    data.length === 0 ||
+    !Array.isArray(salary) ||
+    salary.length === 0 ||
     !userDetails ||
     userDetails.length === 0 ||
     !userPayroll ||
-    userPayroll.length === 0
+    userPayroll.length === 0 ||
+    !payroll ||
+    payroll === 0
   ) {
     return null;
   }
 
+  console.log(userPayroll)
   return (
     <Document>
       <Page style={styles.body} size="A4">
         <Text style={styles.title}>CODEWAVE</Text>
         <Text style={styles.header} fixed>
-          Salary Slip For The month of {userPayroll[0]?.month}
+          Salary Slip For The month of {userPayroll?.month || userPayroll[0]?.month }
         </Text>
         <Line style={styles.line} />
         <Text style={styles.text}>Employee ID: {userDetails[0]?.id}</Text>
@@ -75,19 +78,19 @@ const PdfFile = ({ data, userDetails, userPayroll }) => {
         <Text style={styles.text}>Position: {userDetails[0]?.position}</Text>
         <View style={styles.columnCotainer}>
           <Text style={styles.text}>
-            Paid Days: {userPayroll[0]?.working_days}
+            Paid Days: {userPayroll?.working_days || userPayroll[0]?.working_days}
           </Text>
           <Text style={styles.text}>
-            Total Hours Overtime: {userPayroll[0]?.total_hours_overtime}
+            Total Hours Overtime: {userPayroll?.total_hours_overtime|| userPayroll[0]?.total_hours_overtime }
           </Text>
         </View>
 
         <View style={styles.columnCotainer}>
           <Text style={styles.text}>
-            Gross Salary: {data[0]?.gross_salary.toLocaleString()}
+            Gross Salary: {payroll[0]?.gross_salary.toLocaleString()}
           </Text>
           <Text style={styles.text}>
-            Net Salary: {data[0]?.net_salary.toLocaleString()}
+            Net Salary: {payroll[0]?.net_salary.toLocaleString()}
           </Text>
         </View>
 
@@ -96,17 +99,17 @@ const PdfFile = ({ data, userDetails, userPayroll }) => {
         </Text>
         <Line style={styles.line} />
         <Text style={styles.text}>
-          PhilHealth: {data[1]?.philhealth?.toLocaleString()}
+          PhilHealth: {salary[0]?.philhealth?.toLocaleString()}
         </Text>
         <Text style={styles.text}>
-          Cash Advance: {data[1]?.cash_advance?.toLocaleString()}
+          Cash Advance: {salary[0]?.cash_advance?.toLocaleString()}
         </Text>
         <Text style={styles.text}>
-          Pag-ibig: {data[1]?.pagibig?.toLocaleString()}
+          Pag-ibig: {salary[0]?.pagibig?.toLocaleString()}
         </Text>
-        <Text style={styles.text}>Tax: {data[1]?.tax?.toLocaleString()}</Text>
+        <Text style={styles.text}>Tax: {salary[0]?.tax?.toLocaleString()}</Text>
         <Text style={styles.text}>
-          Total Deduction: {data[1]?.total_deduction?.toLocaleString()}
+          Total Deduction: {salary[0]?.total_deduction?.toLocaleString()}
         </Text>
       </Page>
     </Document>

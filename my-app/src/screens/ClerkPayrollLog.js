@@ -34,8 +34,7 @@ const ClerkPayrollLog = () => {
   if (!Array.isArray(Payroll) || Payroll.length === 0) {
     return null;
   }
-
-  console.log(Payroll)
+  
   return (
     <div className="flex justify-center item-center w-full h-screen">
       <div className="flex flex-col backdrop-blur-sm rounded-xl min-h-[50%] drop-shadow-2xl shadow-2xl w-full mx-10 my-10 border-2 border-dashed">
@@ -73,7 +72,7 @@ const ClerkPayrollLog = () => {
                 <tbody>
                   {Array.isArray(Payroll) &&
                     Payroll.filter(
-                      (item) => item.payroll.month === historyMonth || historyMonth === "" 
+                      (item) => item?.payroll?.month === historyMonth || historyMonth === "" 
                     ).map((item) => (
                       <tr
                         key={item?.payroll?.id}
@@ -92,7 +91,7 @@ const ClerkPayrollLog = () => {
                         </td>
                         <td className="text-sm font-sbold pl-2 hover:text-red-500">
                           <Link
-                            to={`/ClerkDashboard/SalaryLogs/${item?.payroll?.user_id}`}
+                            to={`/ClerkDashboard/SalaryLogs/${item?.payroll?.user_id}/${item?.payroll?.month}/${item?.payroll?.id}`}
                           >
                             View
                           </Link>
