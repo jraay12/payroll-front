@@ -1,7 +1,7 @@
 import "./App.css";
 import Login from "./screens/Login";
 import AddUser from "./screens/AddUser";
-import { Routes, Route, Router } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import PartialDashboard from "./screens/PartialDashboard";
 import Employee from "./screens/Employee";
 import ClerkEmployee from "../src/screens/ClerkEmployee"

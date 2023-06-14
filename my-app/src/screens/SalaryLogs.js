@@ -98,7 +98,7 @@ const SalaryLogs = () => {
             No Existing Salary
           </h1>
         ) : (
-          <div className="container  mx-auto overflow-auto p-4 rounded-3xl bg-white">
+          <div className="container  mx-auto overflow-auto p-4 rounded-3xl shadow-2xl drop-shadow-2xl shadow-black bg-white">
             <div className="border border-gray-400 p-4">
               <h1 className="text-xl font-bold mb-4">CODEWAVE</h1>
               <h2 className="text-lg font-bold mb-2">Payslip</h2>

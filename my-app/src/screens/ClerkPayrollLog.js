@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "../api/axios";
 import SalaryLogs from "./SalaryLogs";
 import { useQuery } from "@tanstack/react-query";
@@ -18,7 +18,7 @@ const ClerkPayrollLog = () => {
     "Content-Type": "application/json",
   };
 
-  const { data:Payroll, isLoading } = useQuery(
+  const { data: Payroll, isLoading } = useQuery(
     ["rate"],
     async () => {
       const response = await axios.get(`/payroll/`, { headers });
@@ -31,13 +31,12 @@ const ClerkPayrollLog = () => {
     }
   );
 
-  if (!Array.isArray(Payroll) || Payroll.length === 0) {
-    return null;
+  if(!Array.isArray(Payroll) || Payroll.length === 0) {
+    return null
   }
-  
   return (
     <div className="flex justify-center item-center w-full h-screen">
-      <div className="flex flex-col backdrop-blur-sm rounded-xl min-h-[50%] drop-shadow-2xl shadow-2xl w-full mx-10 my-10 border-2 border-dashed">
+      <div className="flex flex-col backdrop-blur-sm rounded-xl shadow-black min-h-[50%] drop-shadow-2xl shadow-2xl w-full mx-10 my-10 border-2 border-dashed border-black">
         <div className="flex">
           <div className="flex justify-start">
             <h1 className="font-bold text-4xl ml-4 mt-2">LOGS</h1>
@@ -58,9 +57,9 @@ const ClerkPayrollLog = () => {
             <Loader />
           ) : (
             <>
-              <table className="min-w-full text-left text-sm font-bold text-white">
+              <table className="min-w-full text-left text-sm font-bold">
                 <thead>
-                  <tr className="font-bold text-lg border-2">
+                  <tr className="font-bold text-lg border-2 border-black">
                     <th>Name</th>
                     <th>Rate</th>
                     <th>Month</th>
@@ -72,22 +71,22 @@ const ClerkPayrollLog = () => {
                 <tbody>
                   {Array.isArray(Payroll) &&
                     Payroll.filter(
-                      (item) => item?.payroll?.month === historyMonth || historyMonth === "" 
+                      (item) => item.payroll.month === historyMonth || historyMonth === "" 
                     ).map((item) => (
                       <tr
-                        key={item?.payroll?.id}
+                        key={item.payroll.id}
                         className="hover:bg-gray-600 hover:ease-in cursor-pointer transition ease-in duration-75 font-semibold"
                       >
                         <td className="font-semibold">{item.user}</td>
                         <td className="font-semibold text-sm">{item.rate}</td>
                         <td className="font-semibold text-sm">
-                          {item?.payroll?.month}
+                          {item.payroll.month}
                         </td>
                         <td className="text-sm font-bold pl-2">
-                          {item?.payroll?.working_days}
+                          {item.payroll.working_days}
                         </td>
                         <td className="font-semibold text-sm">
-                          {item?.payroll?.total_hours_overtime}
+                          {item.payroll.total_hours_overtime}
                         </td>
                         <td className="text-sm font-sbold pl-2 hover:text-red-500">
                           <Link

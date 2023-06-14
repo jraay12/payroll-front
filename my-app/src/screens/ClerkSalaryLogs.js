@@ -94,9 +94,7 @@ const ClerkSalaryLogs = () => {
     <div className="flex w-full min-h-screen max-h-screen justify-center items-center">
       <div className="flex flex-col w-[80%] max-h-[80%]">
         {isLoading ? (
-          <h1 className="text-3xl font-extrabold mt-[15%]">
-            No Existing Salary
-          </h1>
+          <Loader />
         ) : (
           <div className="container  mx-auto overflow-auto p-4 rounded-3xl bg-white">
             <div className="border border-gray-400 p-4">

@@ -11,12 +11,18 @@ const ClerkEmployee = () => {
     "Content-Type": "application/json",
   };
 
-  const { data: UserData, isLoading , isError} = useQuery(
+  const {
+    data: UserData,
+    isLoading,
+    isError,
+  } = useQuery(
     ["name"],
     async () => {
       const response = await axios.get(`/getUser`, { headers });
-      const value = response?.data?.data?.filter((item) => item.role_id === 2 || item.role_id === 3);
-      return value
+      const value = response?.data?.data?.filter(
+        (item) => item.role_id === 2 || item.role_id === 3
+      );
+      return value;
     },
     {
       refetchInterval: 500,
@@ -24,16 +30,14 @@ const ClerkEmployee = () => {
     }
   );
 
-  if(isError){
-    return <h1>Error</h1>
-  }
 
-  console.log(UserData)
-
+if(!Array.isArray(UserData) || UserData.length === 0){
+  return null
+}
 
   return (
-    <div className="flex max-h-screen justify-center items-center w-full">
-      <div className="flex flex-col backdrop-blur-sm drop-shadow-2xl shadow-2xl rounded-xl max-h-[70%] min-h-[70%] w-[80%] mx-10 my-10 border-2 border-dashed">
+    <div className="flex max-h-screen justify-center items-center w-full ">
+      <div className="flex flex-col backdrop-blur-sm drop-shadow-2xl shadow-2xl rounded-xl max-h-[70%] min-h-[70%] w-[80%] shadow-black mx-10 my-10 border-2 border-dashed border-black">
         <div
           className={`${
             isLoading && "flex flex-col mt-40 items-center justify-center"
@@ -42,28 +46,33 @@ const ClerkEmployee = () => {
           {isLoading ? (
             <Loader />
           ) : (
-            <table className="min-w-full text-justify text-sm font-bold  text-white px-20">
-              <thead>
-                <tr className="font-bold">
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Position</th>
-                  <th className="pl-20">Options</th>
-                </tr>
-              </thead>
+            <table className="min-w-max flex flex-col text-sm font-bold">
+              {/* <thead className="flex justify-around">
+                <div className="font-bold flex gap-20 -ml-10">
+                  <p>ID</p>
+                  <p>Name</p>
+                  <p>Email</p>
+                  <p className="ml-12">Position</p>
+                  <p className="ml-20">Options</p>
+                </div>
+              </thead> */}
               <tbody>
                 {Array.isArray(UserData) &&
                   UserData.map((user) => (
-                    <tr
+                    <div
                       key={user.id}
-                      className="hover:bg-gray-600 hover:ease-in cursor-pointer"
+                      className="bg-blue-200 hover:bg-blue-400 rounded-3xl  hover:ease-in hover:scale-x-105 flex justify-around items-center gap-10 mt-4 cursor-pointer"
                     >
-                      <td className="font-medium">{user.id}</td>
-                      <td className="text-sm font-semibold">{user.name}</td>
-                      <td className="text-sm font-semibold">{user.email}</td>
-                      <td className="text-sm font-semibold">{user.position}</td>
-                      <td className="py-4">
+                      <img
+                        src={`http://127.0.0.1:8000/api/getPhoto/${user.photo}`}
+                        className="rounded-full w-10 h-10"
+                      />
+
+                      <p className="font-medium">{user.id}</p>
+                      <p className="text-sm font-semibold">{user.name}</p>
+                      <p className="text-sm font-semibold">{user.email}</p>
+                      <p className="text-sm font-semibold">{user.position}</p>
+                      <div className="py-4">
                         <div className="flex gap-2 font-bold">
                           <div className="text-white hover:scale-x-110 transition ease-in-out delay-150">
                             <Link
@@ -82,8 +91,8 @@ const ClerkEmployee = () => {
                             </Link>
                           </div>
                         </div>
-                      </td>
-                    </tr>
+                      </div>
+                    </div>
                   ))}
               </tbody>
             </table>

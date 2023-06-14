@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
 import axios from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 
 const UserPayrollLogs = () => {
@@ -33,7 +32,7 @@ const UserPayrollLogs = () => {
 
   return (
     <div className="flex justify-center item-center w-full h-screen">
-      <div className="flex flex-col backdrop-blur-sm rounded-xl min-h-[50%] drop-shadow-2xl shadow-2xl w-full mx-10 my-10 border-2 border-dashed">
+      <div className="flex flex-col backdrop-blur-sm rounded-xl min-h-[50%] border-black drop-shadow-2xl shadow-2xl w-full mx-10 my-10 border-2 border-dashed shadow-black">
         <div className="flex">
           <div className="flex justify-start">
             <h1 className="font-bold text-4xl ml-4 mt-2">LOGS</h1>
@@ -47,9 +46,9 @@ const UserPayrollLogs = () => {
           {isLoading ? (
             <Loader />
           ) : (
-            <table className="w-[90%] m-10 text-justify text-sm font-bold text-white">
+            <table className="w-[90%] m-10 text-justify text-sm font-bold">
               <thead>
-                <tr className="font-bold text-lg border-2">
+                <tr className="font-bold text-lg border-2 border-black ">
                   <th>Month</th>
                   <th>Working Days</th>
                   <th>Overtime Hours</th>

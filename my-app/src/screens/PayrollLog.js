@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "../api/axios";
 import SalaryLogs from "./SalaryLogs";
 import { useQuery } from "@tanstack/react-query";
@@ -30,9 +30,13 @@ const PayrollLog = () => {
       refetchIntervalInBackground: true,
     }
   );
+
+  if(!Array.isArray(Payroll) || Payroll.length === 0){
+    return null
+  }
   return (
     <div className="flex justify-center item-center w-full h-screen">
-      <div className="flex flex-col backdrop-blur-sm rounded-xl min-h-[50%] drop-shadow-2xl shadow-2xl w-full mx-10 my-10 border-2 border-dashed">
+      <div className="flex flex-col backdrop-blur-sm rounded-xl shadow-black min-h-[50%] drop-shadow-2xl shadow-2xl w-full mx-10 my-10 border-2 border-dashed border-black">
         <div className="flex">
           <div className="flex justify-start">
             <h1 className="font-bold text-4xl ml-4 mt-2">LOGS</h1>
@@ -53,9 +57,9 @@ const PayrollLog = () => {
             <Loader />
           ) : (
             <>
-              <table className="min-w-full text-left text-sm font-bold text-white">
+              <table className="min-w-full text-left text-sm font-bold">
                 <thead>
-                  <tr className="font-bold text-lg border-2">
+                  <tr className="font-bold text-lg border-2 border-black">
                     <th>Name</th>
                     <th>Rate</th>
                     <th>Month</th>

@@ -52,8 +52,8 @@ const AddUser = () => {
   };
   return (
     <div className="flex w-full h-full justify-center items-center ">
-      <div className="flex flex-col backdrop-blur-sm rounded-xl min-h-[50%] drop-shadow-2xl shadow-2xl w-full mx-10 my-12 border-2 border-dashed">
-        <h1 className="font-bold mt-[10px] ml-[10px] text-white">
+      <div className="flex flex-col backdrop-blur-sm rounded-xl min-h-[50%] drop-shadow-2xl shadow-2xl shadow-black w-full mx-10 my-12 border-2 border-black border-dashed">
+        <h1 className="font-bold mt-[10px] ml-[10px]">
           Register Employee
         </h1>
         <form onSubmit={(e) => handleRegister(e)} encType="multipart/form-data">

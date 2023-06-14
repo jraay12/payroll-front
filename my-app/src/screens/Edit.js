@@ -45,7 +45,7 @@ const Edit = () => {
 
   
   return (
-    <div className="flex justify-center items-center flex-col w-full mx-10 my-4 max-h-[550px] max-w-7xl backdrop-blur-sm  drop-shadow-2xl shadow-2xl rounded-xl">
+    <div className="flex justify-center items-center flex-col shadow-black w-full mx-10 my-4 max-h-[550px] max-w-7xl backdrop-blur-sm  drop-shadow-2xl shadow-2xl rounded-xl">
       <label className="font-bold ml-4 text-xl">Update User</label>
       <div className="w-full mx-4 flex flex-col mt-7">
         <div className="flex justify-center items-center flex-col">
